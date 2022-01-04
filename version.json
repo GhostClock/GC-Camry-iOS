@@ -1,0 +1,8 @@
+{
+	"inherit": true,
+	"version": "1.0.3",
+	"download": "https://gitee.com/GhostClock/gc-camry-ios/raw/master/GC-Camry-iOS.js",
+	"changelog": [
+		"1.中组件样式增加地图功能", "2.优化布局设置"
+	]
+}
