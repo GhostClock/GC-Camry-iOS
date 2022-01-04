@@ -3,162 +3,169 @@
 // icon-color: purple; icon-glyph: car;
 
 // ------静态数据------
-// 背景图片
-const kBackgroundImage = "http://img1.tcdachun.com/180519/330808-1P51Z9454738.jpg"
-// 无数据背景图
-const kEmptyDataImage = "https://carappvideo.gtmc.com.cn//fs01//IFImage//carnetImage//img-819-PT-ZZB-089.png"
-// 丰田Icon  logo_black:黑色图标 logo_white:白色图标
-const kToyotaIconImage = "https://gitee.com/GhostClock/gc-camry-ios/raw/master/resource/logo_black.PNG"
-// App版本
-const appVersion = "4.18.0"
-// UserAgent
-const kUserAgent = `GTMC_CarOwner_Yonyou/${appVersion} (iPhone; iOS 15.2; Scale/3.00)Accept-Language: zh-Hans-CN;q=1, en-CN;q=0.9`
-// CookieKey
-const kUserInfoKey = "USERINFO_KEY"
-// 当前版本号
-const kCurrentVersion = "1.0.3"
-// ContentType
-const kContentTypeUrlencoded = "application/x-www-form-urlencoded"
-const kContentTypeJson = "application/json"
-// 警告信息
-const kWarningMsg = [
-  {
+const CONST_DATA = {
+  // App版本
+  appVersion: "4.18.0",
+  // UserAgent
+  UserAgent: `GTMC_CarOwner_Yonyou/${CONST_DATA.appVersion} (iPhone; iOS 15.2; Scale/3.00)Accept-Language: zh-Hans-CN;q=1, en-CN;q=0.9`,
+  // CookieKey
+  UserInfoKey: "USERINFO_KEY",
+  // 当前版本号
+  CurrentVersion: "1.0.3",
+  // ContentType
+  ContentTypeUrlencoded: "application/x-www-form-urlencoded",
+  ContentTypeJson: "application/json",
+  // 警告信息
+  WarningMsg: [ 
+    {
     "warnType": "V003",
     "warnTypeName": "右后门未关"
-  },
-  {
-    "warnType": "V004",
-    "warnTypeName": "左后门未关"
-  },
-  {
-    "warnType": "V005",
-    "warnTypeName": "右前门未关"
-  },
-  {
-    "warnType": "V006",
-    "warnTypeName": "左前门未关",
-  },
-  {
-    "warnType": "V134",
-    "warnTypeName": "发动机罩未关"
-  },
-  {
-    "warnType": "V143",
-    "warnTypeName": "左前门未锁",
-  },
-  {
-    "warnType": "V145",
-    "warnTypeName": "右后车窗未关"
-  },
-  {
-    "warnType": "V146",
-    "warnTypeName": "左后车窗未关"
-  },
-  {
-    "warnType": "V147",
-    "warnTypeName": "右前车窗未关"
-  },
-  {
-    "warnType": "V148",
-    "warnTypeName": "左前车窗未关"
-  },
-  {
-    "warnType": "V149",
-    "warnTypeName": "天窗未关"
-  },
-  {
-    "warnType": "V172",
-    "warnTypeName": "左后门未锁"
-  },
-  {
-    "warnType": "V173",
-    "warnTypeName": "右前门未锁"
-  },
-  {
-    "warnType": "V174",
-    "warnTypeName": "右后门未锁"
-  },
-  {
-    "warnType": "V229",
-    "warnTypeName": "闪光灯未关"
-  },
-  {
-    "warnType": "V408",
-    "warnTypeName": "尾灯未关"
-  },
-  {
-    "warnType": "V409",
-    "warnTypeName": "大灯未关"
+    },
+    {
+      "warnType": "V004",
+      "warnTypeName": "左后门未关"
+    },
+    {
+      "warnType": "V005",
+      "warnTypeName": "右前门未关"
+    },
+    {
+      "warnType": "V006",
+      "warnTypeName": "左前门未关",
+    },
+    {
+      "warnType": "V134",
+      "warnTypeName": "发动机罩未关"
+    },
+    {
+      "warnType": "V143",
+      "warnTypeName": "左前门未锁",
+    },
+    {
+      "warnType": "V145",
+      "warnTypeName": "右后车窗未关"
+    },
+    {
+      "warnType": "V146",
+      "warnTypeName": "左后车窗未关"
+    },
+    {
+      "warnType": "V147",
+      "warnTypeName": "右前车窗未关"
+    },
+    {
+      "warnType": "V148",
+      "warnTypeName": "左前车窗未关"
+    },
+    {
+      "warnType": "V149",
+      "warnTypeName": "天窗未关"
+    },
+    {
+      "warnType": "V172",
+      "warnTypeName": "左后门未锁"
+    },
+    {
+      "warnType": "V173",
+      "warnTypeName": "右前门未锁"
+    },
+    {
+      "warnType": "V174",
+      "warnTypeName": "右后门未锁"
+    },
+    {
+      "warnType": "V229",
+      "warnTypeName": "闪光灯未关"
+    },
+    {
+      "warnType": "V408",
+      "warnTypeName": "尾灯未关"
+    },
+    {
+      "warnType": "V409",
+      "warnTypeName": "大灯未关"
+    }
+  ],
+  // 组件尺寸
+  DeviceSize: {
+    '428x926': {
+      small: { width: 176, height: 176 },
+      medium: { width: 374, height: 176 },
+      large: { width: 374, height: 391 }
+    },
+    '390x844': {
+      small: { width: 161, height: 161 },
+      medium: { width: 342, height: 161 },
+      large: { width: 342, height: 359 }
+    },
+    '414x896': {
+      small: { width: 169, height: 169 },
+      medium: { width: 360, height: 169 },
+      large: { width: 360, height: 376 }
+    },
+    '375x812': {
+      small: { width: 155, height: 155 },
+      medium: { width: 329, height: 155 },
+      large: { width: 329, height: 345 }
+    },
+    '414x736': {
+      small: { width: 159, height: 159 },
+      medium: { width: 348, height: 159 },
+      large: { width: 348, height: 357 }
+    },
+    '375x667': {
+      small: { width: 148, height: 148 },
+      medium: { width: 322, height: 148 },
+      large: { width: 322, height: 324 }
+    }, 
+    '320x568': {
+      small: { width: 141, height: 141 },
+      medium: { width: 291, height: 141 },
+      large: { width: 291, height: 299 }
+    }
   }
-]
-// 组件尺寸
-const kDeviceSize = {
-  '428x926': {
-    small: { width: 176, height: 176 },
-    medium: { width: 374, height: 176 },
-    large: { width: 374, height: 391 }
-  },
-  '390x844': {
-    small: { width: 161, height: 161 },
-    medium: { width: 342, height: 161 },
-    large: { width: 342, height: 359 }
-  },
-  '414x896': {
-    small: { width: 169, height: 169 },
-    medium: { width: 360, height: 169 },
-    large: { width: 360, height: 376 }
-  },
-  '375x812': {
-    small: { width: 155, height: 155 },
-    medium: { width: 329, height: 155 },
-    large: { width: 329, height: 345 }
-  },
-  '414x736': {
-    small: { width: 159, height: 159 },
-    medium: { width: 348, height: 159 },
-    large: { width: 348, height: 357 }
-  },
-  '375x667': {
-    small: { width: 148, height: 148 },
-    medium: { width: 322, height: 148 },
-    large: { width: 322, height: 324 }
-  }, 
-  '320x568': {
-    small: { width: 141, height: 141 },
-    medium: { width: 291, height: 141 },
-    large: { width: 291, height: 299 }
-  }
-}
 
+}
 // ------静态数据结束------
 
 // ------请求URL------
-// 汽车VIM信息URL
-const CarVinInfoURL = "https://carapp.gtmc.com.cn/api/appgtmc/AppRepairRecordAction/loadUserData.json"
-// 汽车经纬度URL
-const CarPositionInfoURL = "https://carapp.gtmc.com.cn/api/vhcApp/vhcNet/getVhcPositionInfo"
-// 经纬度逆编码URL
-function CarPositionAddressURL(ak, latitude, longitude) {
-  return `https://api.map.baidu.com/reverse_geocoding/v3/?ak=${ak}&output=json&coordtype=wgs84ll&location=${latitude},${longitude}&radius=1000&pois=1&coordtype=bd09ll&page_size=1&extensions_poi=1`
+const CAR_BASE_API = "https://carapp.gtmc.com.cn/api/"
+const BAIDU_BASE_API = "https://api.map.baidu.com/"
+const CAR_REQUEST_URL = {
+  // 汽车VIM信息URL
+  VinInfoURL: `${CAR_BASE_API}appgtmc/AppRepairRecordAction/loadUserData.json`,
+  // 汽车经纬度URL
+  PositionInfoURL: `${CAR_BASE_API}vhcApp/vhcNet/getVhcPositionInfo`,
+  // 获取当前车辆信息(油耗，里程等)
+  CurrentInfoURL: (phone, userId, vin) =>
+    `${CAR_BASE_API}vhcApp/vhcNet/refreshVhcCondition?appVersion=${CONST_DATA.appVersion}&carCode=&fyxDevice=2&phone=${phone}&type=&userId=${userId}&vin=${vin}`,
+  // 获取当前车辆信息(名称，图片，车牌号等)
+  CurrentVHCInfoURL: (phone, userId, vin) => 
+    `${CAR_BASE_API}api/vhcApp/vhcNet/vhcInfo?appVersion=${CONST_DATA.appVersion}&basePage=1&carCode=&fyxDevice=2&phone=${phone}&showPopup=1&userId=${userId}&vin=${vin}`,
+  // 获取警告信息
+  WarningMsgURL: (phone, userId, vin) => 
+    `${CAR_BASE_API}vhcApp/warning/warningMsg?appVersion=${CONST_DATA.appVersion}.0&carCode=5&fyxDevice=2&phone=${phone}&userId=${userId}&vin=${vin}`,
+  
+    // 经纬度逆编码URL
+  BaiduPositionAddressURL: (ak, latitude, longitude) => 
+  `${BAIDU_BASE_API}reverse_geocoding/v3/?ak=${ak}&output=json&coordtype=wgs84ll&location=${latitude},${longitude}&radius=1000&pois=1&coordtype=bd09ll&page_size=1&extensions_poi=1`,
+  // 百度静态图片
+  BaiduStaticPicURL: (ak, longitude, latitude, size) => 
+    `${BAIDU_BASE_API}staticimage/v2?ak=${ak}&center=${longitude},${latitude}&width=${size.width}&height=${size.height}&zoom=15&copyright=1`,
+  
+  // 更新文件
+  UpdateVersionURL: "https://gitee.com/GhostClock/gc-camry-ios/raw/master/version.json",
+  // 手机抓包教程
+  CaptureData: 'https://www.cnblogs.com/hong-fithing/p/12562448.html',
+  // 打赏作者
+  ActionDonation: 'https://gitee.com/GhostClock/gc-camry-ios/tree/master#6%E6%89%93%E8%B5%8F',
+  // 背景图片
+  BackgroundImage: "http://img1.tcdachun.com/180519/330808-1P51Z9454738.jpg",
+  // 无数据背景图
+  EmptyDataImage = "https://carappvideo.gtmc.com.cn//fs01//IFImage//carnetImage//img-819-PT-ZZB-089.png",
+  // 丰田Icon  logo_black:黑色图标 logo_white:白色图标
+  ToyotaIconImage = "https://gitee.com/GhostClock/gc-camry-ios/raw/master/resource/logo_black.PNG",
 }
-// 获取当前车辆信息(油耗，里程等)
-function CarCurrentInfoURL(phone, userId, vin) {
-  return `https://carapp.gtmc.com.cn/api/vhcApp/vhcNet/refreshVhcCondition?appVersion=${appVersion}&carCode=&fyxDevice=2&phone=${phone}&type=&userId=${userId}&vin=${vin}`
-}
-// 获取当前车辆信息(名称，图片，车牌号等)
-function CarCurrentVHCInfoURL(phone, userId, vin) {
-  return `https://carapp.gtmc.com.cn/api/vhcApp/vhcNet/vhcInfo?appVersion=${appVersion}&basePage=1&carCode=&fyxDevice=2&phone=${phone}&showPopup=1&userId=${userId}&vin=${vin}`
-}
-// 获取警告信息
-function CarWarningMsgURL(phone, userId, vin) {
-  return `https://carapp.gtmc.com.cn/api/vhcApp/warning/warningMsg?appVersion=${appVersion}.0&carCode=5&fyxDevice=2&phone=${phone}&userId=${userId}&vin=${vin}`
-}
-// 百度静态图片
-function BaiduStaticPicURL(ak, longitude, latitude, size) {
-  return `https://api.map.baidu.com/staticimage/v2?ak=${ak}&center=${longitude},${latitude}&width=${size.width}&height=${size.height}&zoom=15&copyright=1`
-}
-// 更新文件
-const kUpdateVersionURL = "https://gitee.com/GhostClock/gc-camry-ios/raw/master/version.json"
 // ------请求URL结束------
 
 class Base {
@@ -184,18 +191,22 @@ class Base {
   // 获取Cookie信息
   getUserInfo() {
     let userInfo = ""
-    if (Keychain.contains(kUserInfoKey)) {
-      userInfo = Keychain.get(kUserInfoKey)
+    if (Keychain.contains(CONST_DATA.UserInfoKey)) {
+      userInfo = Keychain.get(CONST_DATA.UserInfoKey)
     }
     return userInfo
   }
   // 设置Cookie信息
   setUserInfo(userInfo) {
-    Keychain.set(kUserInfoKey, userInfo)
+    if (Keychain.contains(CONST_DATA.UserInfoKey)) {
+      Keychain.set(CONST_DATA.UserInfoKey, userInfo)
+    }
   }
   // 移除Cookie信息
   removeUserInfo() {
-    Keychain.remove(kUserInfoKey)
+    if (Keychain.contains(CONST_DATA.UserInfoKey)) {
+      Keychain.remove(CONST_DATA.UserInfoKey)
+    }
   }
   //--------网络请求--------
   // 封装的网络请求
@@ -203,9 +214,9 @@ class Base {
   async PostRequest(url, contentType, body, cookie) {
     let header = {
       "type": "1",
-      "User-Agent": kUserAgent,
+      "User-Agent": CONST_DATA.UserAgent,
       "Authorization": cookie,
-      "appVersion": `${appVersion}`,
+      "appVersion": `${CONST_DATA.appVersion}`,
       "fyxDevice": "2",
       "Content-Type": contentType
     }
@@ -222,9 +233,9 @@ class Base {
     let request = new Request(url)
     let header = {
       "type": "1",
-      "User-Agent": kUserAgent,
+      "User-Agent": CONST_DATA.UserAgent,
       "Authorization": cookie,
-      "appVersion": `${appVersion}`,
+      "appVersion": `${CONST_DATA.appVersion}`,
       "fyxDevice": "2",
       "Content-Type": contentType
     }
@@ -587,7 +598,7 @@ class Widget extends Base {
   async render() {
     let data = await this.getData()
     const screenSize = Device.screenSize()
-    const size = kDeviceSize[`${screenSize.width}x${screenSize.height}`] || DEVICE_SIZE['428x926']
+    const size = CONST_DATA.DeviceSize[`${screenSize.width}x${screenSize.height}`] || DEVICE_SIZE['428x926']
     if (data) {
       if (typeof data === 'object') {
         switch (this.widgetFamily) {
@@ -752,7 +763,7 @@ class Widget extends Base {
     let logoContentStack = rightGradientStack.addStack()
     logoContentStack.layoutHorizontally()
     logoContentStack.size = new Size(rightGradientStack.size.width - 15, 20)
-    let logoData = await this.loadImage(kToyotaIconImage)
+    let logoData = await this.loadImage(CAR_REQUEST_URL.ToyotaIconImage)
 
     this.addClearSpace(logoContentStack, logoContentStack.size.width - 80, 20)// 
 
@@ -781,7 +792,7 @@ class Widget extends Base {
    */
   async renderLarge(size, data) {
     let widget = new ListWidget()
-    widget.backgroundImage = await this.shadowImage(await this.loadImage(kEmptyDataImage))
+    widget.backgroundImage = await this.shadowImage(await this.loadImage(CAR_REQUEST_URL.EmptyDataImage))
     // TODO
     let text = widget.addText('大尺寸组件正在开发，敬请期待')
     text.font = this._Font(18)
@@ -795,7 +806,7 @@ class Widget extends Base {
   async renderEmpty() {
     const widget = new ListWidget()
 
-    widget.backgroundImage = await this.shadowImage(await this.loadImage(kEmptyDataImage))
+    widget.backgroundImage = await this.shadowImage(await this.loadImage(CAR_REQUEST_URL.EmptyDataImage))
 
     const text = widget.addText('欢迎使用 Camry 小组件')
     switch (this.widgetFamily) {
@@ -820,7 +831,7 @@ class Widget extends Base {
    */
   async renderError() {
     const widget = new ListWidget()
-    widget.backgroundImage = await this.shadowImage(await this.loadImage(kEmptyDataImage))
+    widget.backgroundImage = await this.shadowImage(await this.loadImage(CAR_REQUEST_URL.EmptyDataImage))
 
     const text = widget.addText("数据有误，请重新输入的用户信息")
     switch (this.widgetFamily) {
@@ -893,7 +904,7 @@ class Widget extends Base {
 
   async getData() {
     // 判断用户是否已经登录
-    return (Keychain.contains(kUserInfoKey) && this.userInfo.length > 0) ? await this.bootstrap() : false
+    return (Keychain.contains(CONST_DATA.UserInfoKey) && this.userInfo.length > 0) ? await this.bootstrap() : false
   }
 
   async bootstrap() {
@@ -960,8 +971,8 @@ class Widget extends Base {
   //-----网络请求-----
   // 获取车架号信息
   async RequestCarVinInfo(cookie, userId) {
-    let body = `appVersion=${appVersion}&fyxDevice=2&userId=${userId}&versionType=1230`
-    let stringData = await this.PostRequest(CarVinInfoURL, kContentTypeUrlencoded, body, cookie)
+    let body = `appVersion=${CONST_DATA.appVersion}&fyxDevice=2&userId=${userId}&versionType=1230`
+    let stringData = await this.PostRequest(CAR_REQUEST_URL.VinInfoURL, kContentTypeUrlencoded, body, cookie)
     let jsonData = JSON.parse(stringData)
     let resultCode = jsonData.resultCode
     if (resultCode != "1") {
@@ -983,28 +994,28 @@ class Widget extends Base {
       "vin": vin,
       "userId": userId,
     }
-    let data = await this.PostRequest(CarPositionInfoURL, kContentTypeJson, body, cookie)
+    let data = await this.PostRequest(CAR_REQUEST_URL.PositionInfoURL, kContentTypeJson, body, cookie)
     var longitude = data["data"]["longitude"]
     var latitude = data["data"]["latitude"]
     log(longitude + " " + latitude)
     // 地理反编码
-    var url = CarPositionAddressURL(ak, latitude, longitude)
+    let url = CAR_REQUEST_URL.PositionAddressURL(ak, latitude, longitude)
     let result = await this.GetRequest(url, kContentTypeJson, '')
     var addressComponent = result["result"]["addressComponent"]
     let city = addressComponent.city
     var district = addressComponent["district"]
     var street = addressComponent["street"]
-    var _address = street
-    return { address: `${city}${district}${_address}`, longitude: `${longitude}`, latitude: `${latitude}` }
+    var _address = `${city}${district}${_address}${street}`
+    return { address: _address, longitude: `${longitude}`, latitude: `${latitude}` }
   }
   // 请求百度静态图片
   async RequestBDStaticPic(ak, longitude, latitude, size) {
-    let staticPicUrl = BaiduStaticPicURL(ak, longitude, latitude, size)
+    let staticPicUrl = CAR_REQUEST_URL.BaiduStaticPicURL(ak, longitude, latitude, size)
     return await this.loadImage(staticPicUrl)
   }
   // 获取当前车辆信息(油耗，里程等)
   async RequestCarCurrentInfo(phone, cookie, userId, vin) {
-    var url = CarCurrentInfoURL(phone, userId, vin)
+    let url = CAR_REQUEST_URL.CurrentInfoURL(phone, userId, vin)
     let jsonData = await this.GetRequest(url, kContentTypeJson, cookie)
     /*
       "fuelPro": 25.0, 剩余油量
@@ -1016,18 +1027,19 @@ class Widget extends Base {
       "fuelFilledWearAvg": 9.2, 当前油耗
     */
     var data = jsonData["data"]
-    var _mileageTotal = data["mileageTotal"]
-    var _mileageVeh = data["mileageVeh"]
-    var _fuelPro = data["fuelPro"]
     return {
-      mileageTotal: _mileageTotal,
-      mileageVeh: _mileageVeh,
-      fuelPro: _fuelPro
+      mileageTotal: data["mileageTotal"],
+      mileageVeh:  data["mileageVeh"],
+      fuelPro: data["fuelPro"],
+      mileageCounterA: data["mileageCounterA"],
+      mileageCounterB: data["mileageCounterB"],
+      fuelWearAvg: data["fuelWearAvg"],
+      fuelFilledWearAvg: data["fuelFilledWearAvg"],
     }
   }
   // 获取当前车辆信息(名称，图片，车牌号等)
   async CarCurrentVHCInfo(phone, userId, cookie, vin) {
-    var url = CarCurrentVHCInfoURL(phone, userId, vin)
+    let url = CAR_REQUEST_URL.CurrentVHCInfoURL(phone, userId, vin)
     var contentType = `${kContentTypeJson};charset=UTF-8`
     let jsonData = await this.GetRequest(url, contentType, cookie)
     var data = jsonData["data"]
@@ -1036,25 +1048,22 @@ class Widget extends Base {
         "vhcName": "全新第八代凯美瑞", 名称
         "modelCode": "MXV", 
         "modelImage": "https://carappvideo.gtmc.com.cn/fs01/IFImage/carnetImage/img-819-PT-ZZB-089.png", // 图片
-      */
-    var _registNo = data["registNo"]
-    var _vhcName = data["vhcName"]
-    var _modelImage = data["modelImage"]
+    */
     log(_modelImage)
     return {
-      registNo: _registNo,
-      vhcName: _vhcName,
-      modelImage: _modelImage
+      registNo: data["registNo"],
+      vhcName: data["vhcName"],
+      modelImage: data["modelImage"]
     }
   }
   // 获取车辆门窗信息
   async CarWarningMsg(phone, userId, cookie, vin) {
-    let url = CarWarningMsgURL(phone, userId, vin)
+    let url = CAR_REQUEST_URL.WarningMsgURL(phone, userId, vin)
     let result = await this.GetRequest(url, kContentTypeJson, cookie)
     let warnTypes = result.data.warnTypes
     let msg = ""
     for (let index in warnTypes) {
-      let localItem = kWarningMsg[index]
+      let localItem = CONST_DATA.WarningMsg[index]
       let item = warnTypes[index]
       if (item.warnType == localItem.warnType && item.existStatus != 1) {
         msg += `${localItem.warnTypeName} `
@@ -1066,7 +1075,7 @@ class Widget extends Base {
   async CheckUpdateAction() {
     const UPDATE_FILE = 'GC-Camry-iOS.js'
     const FILE_MGR = FileManager[module.filename.includes('Documents/iCloud~') ? 'iCloud' : 'local']()
-    const request = new Request(kUpdateVersionURL)
+    const request = new Request(CAR_REQUEST_URL.UpdateVersionURL)
     const responseString = await request.loadJSON()
     log(responseString)
     let response = JSON.parse(responseString)
@@ -1095,11 +1104,11 @@ class Widget extends Base {
 
   // 手机抓包教程
   async captureData() {
-    Safari.open('https://www.cnblogs.com/hong-fithing/p/12562448.html')
+    Safari.open(CAR_REQUEST_URL.CaptureData)
   }
   // 打赏作者
   async actionDonation() {
-    Safari.open('https://gitee.com/GhostClock/gc-camry-ios/tree/master#6%E6%89%93%E8%B5%8F')
+    Safari.open(CAR_REQUEST_URL.ActionDonation)
   }
   // 检查更新
   async checkUpdate() {
