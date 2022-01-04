@@ -10,7 +10,7 @@
 
 ### 目前版本的最终效果：
 
-<img src="https://gitee.com/GhostClock/gc-camry-ios/raw/master/images/效果图.PNG" alt="效果图" style="zoom:70%;"/>
+<img src="images/效果图.PNG" alt="效果图" style="zoom:70%;"/>
 
 ### 1.本组件为本人空余时间开发，请勿用作商业用途；
 
@@ -26,7 +26,7 @@
 
 ### 7.关于打开Stream打开抓包时，丰云行无法联网的问题，需要你在Stream白名单里面添加`carapp.gtmc.com.cn`即可，如下图添加白名单
 
-<img src="https://gitee.com/GhostClock/gc-camry-ios/raw/develop/images/设置抓包模式.png" alt="设置抓包模式" style="zoom:20%;" /><img src="https://gitee.com/GhostClock/gc-camry-ios/raw/develop/images/开启白名单模式.png" alt="开启白名单模式" style="zoom:20%;"/><img src="https://gitee.com/GhostClock/gc-camry-ios/raw/master/images/添加白名单.png" alt="添加白名单" style="zoom:30%;" />
+<img src="images/设置抓包模式.png" alt="设置抓包模式" style="zoom:20%;" /><img src="images/开启白名单模式.png" alt="开启白名单模式" style="zoom:20%;"/><img src="https://gitee.com/GhostClock/gc-camry-ios/raw/master/images/添加白名单.png" alt="添加白名单" style="zoom:30%;" />
 
 
 
@@ -42,7 +42,7 @@ Stream抓包使用方法请看(这里是教你怎么用Stream，和我们的目�
 
 因为我们是要抓取https的请求，所以直接看抓包实践：https://www.cnblogs.com/hong-fithing/p/12562448.html#tid-jX5wxr
 
-<img src="https://gitee.com/GhostClock/gc-camry-ios/raw/master/images/配置CA证书.png" alt="配置CA证书" style="zoom:75%;" />
+<img src="images/配置CA证书.png" alt="配置CA证书" style="zoom:75%;" />
 
 如上图所提示的，必须在系统信任CA证书才可以，信任路径
 
@@ -70,19 +70,19 @@ Stream抓包使用方法请看(这里是教你怎么用Stream，和我们的目�
 
 如下图：
 
-<img src="https://gitee.com/GhostClock/gc-camry-ios/raw/master/images/创建应用.png" alt="创建应用" style="zoom:50%;" />
+<img src="images/创建应用.png" alt="创建应用" style="zoom:50%;" />
 
 #### 2.输入相关信息
 
 注意：应用类型要选【浏览器端】，其他默认即可，最后的Referer白名单输入*
 
-<img src="https://gitee.com/GhostClock/gc-camry-ios/raw/master/images/应用信息.png" alt="应用信息" style="zoom:75%;" />
+<img src="images/应用信息.png" alt="应用信息" style="zoom:75%;" />
 
 #### 3.复制AK
 
 返回到我的应用，复制AK
 
-<img src="https://gitee.com/GhostClock/gc-camry-ios/raw/master/images/AK.png" alt="AK" style="zoom:75%;" />
+<img src="images/AK.png" alt="AK" style="zoom:75%;" />
 
 
 
@@ -104,15 +104,15 @@ Stream抓包使用方法请看(这里是教你怎么用Stream，和我们的目�
 
 ### 4.打开抓包历史，点击最近的一次抓包记录，再点击【按域名】排序，找到`carapp.gtmc.com.cn`
 
-### <img src="https://gitee.com/GhostClock/gc-camry-ios/raw/master/images/carapp.gtmc.com.cn.png" alt="carapp.gtmc.com.cn" style="zoom:75%;" />
+### <img src="images/carapp.gtmc.com.cn.png" alt="carapp.gtmc.com.cn" style="zoom:75%;" />
 
-### 5.在右上搜索关键字`AppUser.json`,点击确定<img src="https://gitee.com/GhostClock/gc-camry-ios/raw/master/images/AppUser.png" alt="AppUser" style="zoom:75%;" />
+### 5.在右上搜索关键字`AppUser.json`,点击确定<img src="images/AppUser.png" alt="AppUser" style="zoom:75%;" />
 
 ### 6.在搜索记录点击该请求，再点击【响应】，【查看响应】
 
 ### 7.拷贝全部数据
 
-<img src="https://gitee.com/GhostClock/gc-camry-ios/raw/master/images/用户信息.png" alt="用户信息" style="zoom:75%;" />
+<img src="images/用户信息.png" alt="用户信息" style="zoom:75%;" />
 
 ## 5.运行Scriptable
 
@@ -120,7 +120,9 @@ Stream抓包使用方法请看(这里是教你怎么用Stream，和我们的目�
 
 在弹出的输入第4步得到的Cookie信息和百度AK
 
-<img src="https://gitee.com/GhostClock/gc-camry-ios/raw/master/images/用户数据1.png" alt="用户数据1" style="zoom:50%;" /><img src="https://gitee.com/GhostClock/gc-camry-ios/raw/master/images/用户数据2.png" alt="用户数据2" style="zoom:60%;" />
+<img src="images/用户数据1.png" alt="用户数据1" style="zoom:50%;" />
+
+<img src="images/用户数据2.png" alt="用户数据2" style="zoom:60%;" />
 
 ## 6.添加小组件到桌面上
 
@@ -138,7 +140,7 @@ Stream抓包使用方法请看(这里是教你怎么用Stream，和我们的目�
 
 开发不易，请我喝杯奈雪吧 ^_^
 
-<img src="https://gitee.com/GhostClock/gc-camry-ios/raw/master/images/支付宝.png" alt="支付宝" style="zoom:50%;" /> <img src="https://gitee.com/GhostClock/gc-camry-ios/raw/master/images/微信.png" alt="微信" style="zoom:60%;" />
+<img src="images/支付宝.png" alt="支付宝" style="zoom:50%;" /> <img src="images/微信.png" alt="微信" style="zoom:60%;" />
 
 
 
