@@ -162,9 +162,9 @@ const CAR_REQUEST_URL = {
   // 背景图片
   BackgroundImage: "http://img1.tcdachun.com/180519/330808-1P51Z9454738.jpg",
   // 无数据背景图
-  EmptyDataImage = "https://carappvideo.gtmc.com.cn//fs01//IFImage//carnetImage//img-819-PT-ZZB-089.png",
+  EmptyDataImage: "https://carappvideo.gtmc.com.cn//fs01//IFImage//carnetImage//img-819-PT-ZZB-089.png",
   // 丰田Icon  logo_black:黑色图标 logo_white:白色图标
-  ToyotaIconImage = "https://gitee.com/GhostClock/gc-camry-ios/raw/master/resource/logo_black.PNG",
+  ToyotaIconImage: "https://gitee.com/GhostClock/gc-camry-ios/raw/master/resource/logo_black.PNG",
 }
 // ------请求URL结束------
 
