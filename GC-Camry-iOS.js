@@ -557,7 +557,8 @@ class Widget extends Base {
     this.cookie = ''
     this.userId = ''
     this.phone = ''
-    this.ak = ''
+    this.baiduAk = ''
+    this.carVIN = ''
 
     if (config.runsInApp) {
       // 1.获取cookie和userID
@@ -569,7 +570,7 @@ class Widget extends Base {
         this.cookie = `${_userInfo[0]}`
         this.userId = `${_userInfo[1]}`
         this.phone = `${_userInfo[2]}`
-        this.ak = `${_userInfo[3]}`
+        this.baiduAk = `${_userInfo[3]}`
 
         this.NetworkingAction(this.cookie, this.userId, this.phone, this.ak)
       }
@@ -577,7 +578,7 @@ class Widget extends Base {
       this.registerAction('抓包教程', this.captureData)  
       this.registerAction("检查更新", this.checkUpdate)
       this.registerAction('打赏作者', this.actionDonation)
-      this.registerAction('当前版本: v' + kCurrentVersion, () => {})
+      this.registerAction('当前版本: v' + CONST_DATA.CurrentVersion, () => {})
     } else if (config.runsInWidget) {
 
       let _userInfo = this.userInfo.split(" ")
@@ -745,7 +746,7 @@ class Widget extends Base {
     // 右
     let rightContentStack = bgStack.addStack()
     rightContentStack.size = new Size(bgStack.size.width - leftBgStack.size.width, bgStack.size.height)
-    rightContentStack.backgroundImage = await this.RequestBDStaticPic(this.ak, data.longitude, data.latitude, rightContentStack.size)
+    rightContentStack.backgroundImage = await this.RequestBDStaticPic(this.baiduAk, data.longitude, data.latitude, rightContentStack.size)
     
     let rightGradientStack = rightContentStack.addStack()
     rightGradientStack.layoutVertically()
