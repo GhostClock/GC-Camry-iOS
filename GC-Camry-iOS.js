@@ -5,13 +5,15 @@
 // ------静态数据------
 const CONST_DATA = {
   // App版本
-  appVersion: "4.18.0",
+  AppVersion: "4.18.0",
   // UserAgent
-  UserAgent: `GTMC_CarOwner_Yonyou/${CONST_DATA.appVersion} (iPhone; iOS 15.2; Scale/3.00)Accept-Language: zh-Hans-CN;q=1, en-CN;q=0.9`,
+  UserAgent: `GTMC_CarOwner_Yonyou/${this.AppVersion} (iPhone; iOS 15.2; Scale/3.00)Accept-Language: zh-Hans-CN;q=1, en-CN;q=0.9`,
   // CookieKey
   UserInfoKey: "USERINFO_KEY",
+  // 车架号信息
+  VinInfoKey: "VIN_INFO_KEY",
   // 当前版本号
-  CurrentVersion: "1.0.3",
+  CurrentVersion: "1.3.1",
   // ContentType
   ContentTypeUrlencoded: "application/x-www-form-urlencoded",
   ContentTypeJson: "application/json",
@@ -138,17 +140,17 @@ const CAR_REQUEST_URL = {
   PositionInfoURL: `${CAR_BASE_API}vhcApp/vhcNet/getVhcPositionInfo`,
   // 获取当前车辆信息(油耗，里程等)
   CurrentInfoURL: (phone, userId, vin) =>
-    `${CAR_BASE_API}vhcApp/vhcNet/refreshVhcCondition?appVersion=${CONST_DATA.appVersion}&carCode=&fyxDevice=2&phone=${phone}&type=&userId=${userId}&vin=${vin}`,
+    `${CAR_BASE_API}vhcApp/vhcNet/refreshVhcCondition?appVersion=${CONST_DATA.AppVersion}&carCode=&fyxDevice=2&phone=${phone}&type=&userId=${userId}&vin=${vin}`,
   // 获取当前车辆信息(名称，图片，车牌号等)
   CurrentVHCInfoURL: (phone, userId, vin) => 
-    `${CAR_BASE_API}api/vhcApp/vhcNet/vhcInfo?appVersion=${CONST_DATA.appVersion}&basePage=1&carCode=&fyxDevice=2&phone=${phone}&showPopup=1&userId=${userId}&vin=${vin}`,
+    `${CAR_BASE_API}vhcApp/vhcNet/vhcInfo?appVersion=${CONST_DATA.AppVersion}&basePage=1&carCode=&fyxDevice=2&phone=${phone}&showPopup=1&userId=${userId}&vin=${vin}`,
   // 获取警告信息
   WarningMsgURL: (phone, userId, vin) => 
-    `${CAR_BASE_API}vhcApp/warning/warningMsg?appVersion=${CONST_DATA.appVersion}.0&carCode=5&fyxDevice=2&phone=${phone}&userId=${userId}&vin=${vin}`,
+    `${CAR_BASE_API}vhcApp/warning/warningMsg?appVersion=${CONST_DATA.AppVersion}.0&carCode=5&fyxDevice=2&phone=${phone}&userId=${userId}&vin=${vin}`,
   
     // 经纬度逆编码URL
   BaiduPositionAddressURL: (ak, latitude, longitude) => 
-  `${BAIDU_BASE_API}reverse_geocoding/v3/?ak=${ak}&output=json&coordtype=wgs84ll&location=${latitude},${longitude}&radius=1000&pois=1&coordtype=bd09ll&page_size=1&extensions_poi=1`,
+    `${BAIDU_BASE_API}reverse_geocoding/v3/?ak=${ak}&output=json&coordtype=wgs84ll&location=${latitude},${longitude}&radius=1000&pois=1&coordtype=bd09ll&page_size=1&extensions_poi=1`,
   // 百度静态图片
   BaiduStaticPicURL: (ak, longitude, latitude, size) => 
     `${BAIDU_BASE_API}staticimage/v2?ak=${ak}&center=${longitude},${latitude}&width=${size.width}&height=${size.height}&zoom=15&copyright=1`,
@@ -179,7 +181,7 @@ class Base {
     // 组件大小：small,medium,large
     this.debugLog("组件初始化")
     this.widgetFamily = widgetFamily
-    this.userInfo = this.getUserInfo()
+    this.userInfo = this.getUserInfoDetail()
   }
 
   // 注册点击操作菜单
@@ -190,17 +192,14 @@ class Base {
   //--------Cookie--------
   // 获取Cookie信息
   getUserInfo() {
-    let userInfo = ""
     if (Keychain.contains(CONST_DATA.UserInfoKey)) {
-      userInfo = Keychain.get(CONST_DATA.UserInfoKey)
+      return Keychain.get(CONST_DATA.UserInfoKey)
     }
-    return userInfo
+    return ""
   }
   // 设置Cookie信息
   setUserInfo(userInfo) {
-    if (Keychain.contains(CONST_DATA.UserInfoKey)) {
-      Keychain.set(CONST_DATA.UserInfoKey, userInfo)
-    }
+    Keychain.set(CONST_DATA.UserInfoKey, userInfo)
   }
   // 移除Cookie信息
   removeUserInfo() {
@@ -208,6 +207,37 @@ class Base {
       Keychain.remove(CONST_DATA.UserInfoKey)
     }
   }
+  // 获取用户详细信息
+  getUserInfoDetail() {
+    this.userInfo = this.getUserInfo()
+    let _userInfo = this.userInfo.split(" ")
+    let _cookie = `${_userInfo[0]}`
+    let _userId = `${_userInfo[1]}`
+    let _phone = `${_userInfo[2]}`
+    let _baiduAk = `${_userInfo[3]}`
+    return { cookie: _cookie, userId: _userId, phone: _phone, ak: _baiduAk }
+  }
+  // 缓存车架号
+  setVINInfo(vinInfo) {
+    Keychain.set(CONST_DATA.VinInfoKey, vinInfo)
+  }
+  // 得到车架号
+  getVINInfo() {
+    let _vinInfo = {vin: "", vhcGradeCode: ""}
+    if (Keychain.contains(CONST_DATA.VinInfoKey)) {
+      let vinInfo= Keychain.get(CONST_DATA.VinInfoKey).split(" ")
+      _vinInfo.vin = vinInfo[0]
+      _vinInfo.vhcGradeCode = vinInfo[1]
+    }
+    return _vinInfo
+  }
+  // 移除车架号
+  removeVINInfo() {
+    if (Keychain.contains(CONST_DATA.VinInfoKey)) {
+      Keychain.remove(CONST_DATA.VinInfoKey)
+    }
+  }
+
   //--------网络请求--------
   // 封装的网络请求
   // POST 请求
@@ -216,7 +246,7 @@ class Base {
       "type": "1",
       "User-Agent": CONST_DATA.UserAgent,
       "Authorization": cookie,
-      "appVersion": `${CONST_DATA.appVersion}`,
+      "appVersion": `${CONST_DATA.AppVersion}`,
       "fyxDevice": "2",
       "Content-Type": contentType
     }
@@ -225,7 +255,7 @@ class Base {
     request.headers = header
     request.method = "POST"
     request.body = JSON.stringify(body)
-    return await (contentType == kContentTypeUrlencoded) ? request.loadString() : request.loadJSON()
+    return await (contentType == CONST_DATA.ContentTypeUrlencoded) ? request.loadString() : request.loadJSON()
   }
 
   // GET 请求  
@@ -235,7 +265,7 @@ class Base {
       "type": "1",
       "User-Agent": CONST_DATA.UserAgent,
       "Authorization": cookie,
-      "appVersion": `${CONST_DATA.appVersion}`,
+      "appVersion": `${CONST_DATA.AppVersion}`,
       "fyxDevice": "2",
       "Content-Type": contentType
     }
@@ -491,7 +521,7 @@ class Base {
     return spaceStack
   }
 
-  testShowAlert(message) {
+  showAlert(message) {
     const alert = new Alert()
     alert.title = "提示"
     alert.message = message
@@ -554,24 +584,18 @@ class Widget extends Base {
     this.styleType = arg
     this.name = '凯美瑞 小组件'
     this.desc = '丰田凯美瑞 车辆桌面组件展示'
-    this.cookie = ''
-    this.userId = ''
-    this.phone = ''
-    this.baiduAk = ''
-    this.carVIN = ''
 
+    let userInfo = this.getUserInfoDetail()
+    this.cookie = `${userInfo.cookie}`
+    this.userId = `${userInfo.userId}`
+    this.phone = `${userInfo.phone}`
+    this.ak = `${userInfo.ak}`
     if (config.runsInApp) {
       // 1.获取cookie和userID
-      if (this.userInfo.length == 0) {
+      if (this.cookie.length == 0) {
         // 2.如果没有获取到,弹出Alert让其输入
         this.registerAction('获取用户信息', this.actionUserInfo)
       } else {
-        let _userInfo = this.userInfo.split(" ")
-        this.cookie = `${_userInfo[0]}`
-        this.userId = `${_userInfo[1]}`
-        this.phone = `${_userInfo[2]}`
-        this.baiduAk = `${_userInfo[3]}`
-
         this.NetworkingAction(this.cookie, this.userId, this.phone, this.ak)
       }
       this.registerAction('移除用户信息', this.removeUserInfo)
@@ -580,12 +604,6 @@ class Widget extends Base {
       this.registerAction('打赏作者', this.actionDonation)
       this.registerAction('当前版本: v' + CONST_DATA.CurrentVersion, () => {})
     } else if (config.runsInWidget) {
-
-      let _userInfo = this.userInfo.split(" ")
-      this.cookie = `${_userInfo[0]}`
-      this.userId = `${_userInfo[1]}`
-      this.phone = `${_userInfo[2]}`
-      this.ak = `${_userInfo[3]}`
       if (this.cookie.length > 0 && this.userId.length > 0 && this.phone.length > 0 && this.ak.length > 0) {
         this.NetworkingAction(this.cookie, this.userId, this.phone, this.ak)
       }
@@ -706,9 +724,11 @@ class Widget extends Base {
     textContentStack.layoutVertically()
     textContentStack.size = new Size(leftBgStack.size.width - leftSpaceStack.size.width, leftBgStack.size.height)
 
+    // 可以在这里定制化你自己想要的Title,建议不要太长，因为可能显示不下 
+    // 例如：`凯美瑞 ${data.vhcGradeCode} 豪华版(${data.registNo})` registNo为车牌号，
     let titleString = `CAMRY ${data.vhcGradeCode}`
     let title = textContentStack.addText(titleString)
-    title.font = Font.italicSystemFont(21)
+    title.font = Font.boldSystemFont(20) // 这里可以修改字体，默认为斜体,想改为斜体的话：italicSystemFontboldSystemFont(21)
     title.textColor = Color.black()
     
     // 剩余油量
@@ -746,7 +766,7 @@ class Widget extends Base {
     // 右
     let rightContentStack = bgStack.addStack()
     rightContentStack.size = new Size(bgStack.size.width - leftBgStack.size.width, bgStack.size.height)
-    rightContentStack.backgroundImage = await this.RequestBDStaticPic(this.baiduAk, data.longitude, data.latitude, rightContentStack.size)
+    rightContentStack.backgroundImage = await this.RequestBDStaticPic(this.ak, data.longitude, data.latitude, rightContentStack.size)
     
     let rightGradientStack = rightContentStack.addStack()
     rightGradientStack.layoutVertically()
@@ -883,23 +903,23 @@ class Widget extends Base {
     const id = await alert.presentAlert()
     if (id === -1) return
     let userInfo = alert.textFieldValue(0)
-    let ak = alert.textFieldValue(1)
+    let _ak = alert.textFieldValue(1)
     try {
       let jsonData = JSON.parse(userInfo)
       // 解析数据
-      var cookie = jsonData["data"]["jwt"]
-      var userId = jsonData["data"]["rData"]["userId"]
-      var phone = jsonData["data"]["rData"]["telPhone"]
-      log(userId + "-" + phone)
+      var _cookie = jsonData["data"]["jwt"]
+      var _userId = jsonData["data"]["rData"]["userId"]
+      var _phone = jsonData["data"]["rData"]["telPhone"]
+      log(_userId + "-" + _phone)
       // 本地保存数据
-      let cacheUserInfo = cookie + " " + userId + " " + phone + " " + ak
+      let cacheUserInfo = _cookie + " " + _userId + " " + _phone + " " + _ak
       this.setUserInfo(cacheUserInfo)
         // 开始执行本地逻辑
-      this.NetworkingAction(cookie, userId, phone, ak)
+      this.NetworkingAction(_cookie, _userId, _phone, _ak)
       this.notify('设置成功', '桌面组件稍后将自动刷新')
     } catch (error) {
       log(error)
-      this.testShowAlert("请输入正确的数据")
+      this.showAlert("请输入正确的数据")
     }
   }
 
@@ -929,23 +949,41 @@ class Widget extends Base {
       vhcGradeCode: "", // 汽车型号
       refreshDate: this.getRefreshDate() //刷新时间
     }
-    // 1.必须先获取车架号
-    let vinInfo = await this.RequestCarVinInfo(cookie, userId)
-    if (typeof vinInfo != 'object') {
-      this.removeUserInfo()
-      this.notify("提示", "所有用户信息都已经清除")
-      return vinInfo
-    }
+    // 1.必须先获取车架号 -> 经测试这个接口特别容易失败，所以做缓存处理
+    // 先从本地缓存取
+    let vinInfo = this.getVINInfo()
+    let vin = vinInfo.vin
+    let vhcGradeCode = vinInfo.vhcGradeCode
+    if (vin.length == 0) {
+      log("本地无车架号和车型，开始请求车架号和车型")
+      // 本地缓存取不到就去请求网络
+      let _vinInfo = await this.RequestCarVinInfo(cookie, userId)
+      if (_vinInfo.resultCode != '1') {
+        this.cookitInvalid(_vinInfo.errMsg)
+        return vinInfo
+      }
+      vin = _vinInfo.vin
+      vhcGradeCode = _vinInfo.vhcGradeCode
+
+      this.setVINInfo(vin + " " + vhcGradeCode)
+    } 
     log(vinInfo)
-    carInfoData.vin = vinInfo.vin
-    carInfoData.vhcGradeCode = vinInfo.vhcGradeCode
+    carInfoData.vin = vin
+    carInfoData.vhcGradeCode = vhcGradeCode
     this.debugLog(`车架号: ${carInfoData.vin}`)
+
     // 2.获取汽车位置
     let positionData = await this.RequestCarPosition(cookie, phone, userId, carInfoData.vin, ak)
+    if (positionData.resultCode != 200) {
+      this.cookitInvalid(positionData.errMsg)
+      return positionData
+    }
+
     carInfoData.address = positionData.address
     carInfoData.longitude = positionData.longitude
     carInfoData.latitude = positionData.latitude
     this.debugLog(`汽车地址: ${carInfoData.address} ${carInfoData.longitude}-${carInfoData.latitude}`)
+
     // 3.获取当前车辆信息(油耗，里程等)  
     let currentInfo = await this.RequestCarCurrentInfo(phone, cookie, userId, carInfoData.vin)
     carInfoData.fuelPro = currentInfo.fuelPro
@@ -964,28 +1002,33 @@ class Widget extends Base {
     let warningInfo = await this.CarWarningMsg(phone, userId, cookie, carInfoData.vin)  
     log(warningInfo)
     carInfoData.warningMsg = warningInfo.warningMsg
-    var doorInfo = carInfoData.warningMsg.length > 0 ? `${warningMsg}` : "所有门窗都已经关好"
+    var doorInfo = carInfoData.warningMsg.length > 0 ? `${carInfoData.warningMsg}` : "所有门窗都已经关好"
     this.debugLog(`门窗信息: ${doorInfo}`)
     return carInfoData
+  }
+  // Cookie失效
+  cookitInvalid(errMsg) {
+    this.removeUserInfo()
+    this.notify("提示", `所有用户信息都已经清除(${_vinInfo.errMsg})`)
   }
 
   //-----网络请求-----
   // 获取车架号信息
   async RequestCarVinInfo(cookie, userId) {
-    let body = `appVersion=${CONST_DATA.appVersion}&fyxDevice=2&userId=${userId}&versionType=1230`
-    let stringData = await this.PostRequest(CAR_REQUEST_URL.VinInfoURL, kContentTypeUrlencoded, body, cookie)
+    let body = `appVersion=${CONST_DATA.AppVersion}&fyxDevice=2&userId=${userId}&versionType=1230`
+    let stringData = await this.PostRequest(CAR_REQUEST_URL.VinInfoURL, CONST_DATA.ContentTypeUrlencoded, body, cookie)
     let jsonData = JSON.parse(stringData)
     let resultCode = jsonData.resultCode
     if (resultCode != "1") {
       // Cookie过期
       log(`Cookie已经过期, errorCode: ${resultCode}`)
-      return resultCode
+      return {resultCode: jsonData.resultCode, errMsg: jsonData.errMsg}
     }
     let row = jsonData.data.rows[0]
     let _vin = row.vin
     let _vhcGradeCode = row.vhcGradeCode
     _vhcGradeCode = _vhcGradeCode.split(" ")[1]
-    return { vin: _vin, vhcGradeCode: _vhcGradeCode}
+    return {resultCode: jsonData.resultCode, vin: _vin, vhcGradeCode: _vhcGradeCode}
   }
 
   // 获取汽车经纬度信息 -> 地理反编码
@@ -995,19 +1038,22 @@ class Widget extends Base {
       "vin": vin,
       "userId": userId,
     }
-    let data = await this.PostRequest(CAR_REQUEST_URL.PositionInfoURL, kContentTypeJson, body, cookie)
+    let data = await this.PostRequest(CAR_REQUEST_URL.PositionInfoURL, CONST_DATA.ContentTypeJson, body, cookie)
+    if (data.resultCode != 200) {
+      return {resultCode: data.resultCode, errMsg: data.errMsg}
+    }
     var longitude = data["data"]["longitude"]
     var latitude = data["data"]["latitude"]
     log(longitude + " " + latitude)
     // 地理反编码
-    let url = CAR_REQUEST_URL.PositionAddressURL(ak, latitude, longitude)
-    let result = await this.GetRequest(url, kContentTypeJson, '')
-    var addressComponent = result["result"]["addressComponent"]
+    let url = CAR_REQUEST_URL.BaiduPositionAddressURL(ak, latitude, longitude)
+    let resultData = await this.GetRequest(url, CONST_DATA.ContentTypeJson, '')
+    var addressComponent = resultData["result"]["addressComponent"]
     let city = addressComponent.city
     var district = addressComponent["district"]
     var street = addressComponent["street"]
-    var _address = `${city}${district}${_address}${street}`
-    return { address: _address, longitude: `${longitude}`, latitude: `${latitude}` }
+    var _address = `${city}${district}${street}`
+    return {resultCode: data.resultCode, address: `${_address}`, longitude: `${longitude}`, latitude: `${latitude}` }
   }
   // 请求百度静态图片
   async RequestBDStaticPic(ak, longitude, latitude, size) {
@@ -1017,7 +1063,7 @@ class Widget extends Base {
   // 获取当前车辆信息(油耗，里程等)
   async RequestCarCurrentInfo(phone, cookie, userId, vin) {
     let url = CAR_REQUEST_URL.CurrentInfoURL(phone, userId, vin)
-    let jsonData = await this.GetRequest(url, kContentTypeJson, cookie)
+    let jsonData = await this.GetRequest(url, CONST_DATA.ContentTypeJson, cookie)
     /*
       "fuelPro": 25.0, 剩余油量
       "mileageVeh": 123.0, 续航
@@ -1041,7 +1087,7 @@ class Widget extends Base {
   // 获取当前车辆信息(名称，图片，车牌号等)
   async CarCurrentVHCInfo(phone, userId, cookie, vin) {
     let url = CAR_REQUEST_URL.CurrentVHCInfoURL(phone, userId, vin)
-    var contentType = `${kContentTypeJson};charset=UTF-8`
+    var contentType = `${CONST_DATA.ContentTypeJson};charset=UTF-8`
     let jsonData = await this.GetRequest(url, contentType, cookie)
     var data = jsonData["data"]
     /*
@@ -1050,7 +1096,6 @@ class Widget extends Base {
         "modelCode": "MXV", 
         "modelImage": "https://carappvideo.gtmc.com.cn/fs01/IFImage/carnetImage/img-819-PT-ZZB-089.png", // 图片
     */
-    log(_modelImage)
     return {
       registNo: data["registNo"],
       vhcName: data["vhcName"],
@@ -1060,7 +1105,7 @@ class Widget extends Base {
   // 获取车辆门窗信息
   async CarWarningMsg(phone, userId, cookie, vin) {
     let url = CAR_REQUEST_URL.WarningMsgURL(phone, userId, vin)
-    let result = await this.GetRequest(url, kContentTypeJson, cookie)
+    let result = await this.GetRequest(url, CONST_DATA.ContentTypeJson, cookie)
     let warnTypes = result.data.warnTypes
     let msg = ""
     for (let index in warnTypes) {
@@ -1081,7 +1126,7 @@ class Widget extends Base {
     log(responseString)
     let response = JSON.parse(responseString)
     console.log(`远程版本：${response?.version}`)
-    if (response?.version === kCurrentVersion) return this.notify('无需更新', '远程版本一致，暂无更新')
+    if (response?.version === CONST_DATA.CurrentVersion) return this.notify('无需更新', '远程版本一致，暂无更新')
     console.log('发现新的版本')
 
     const log = response?.changelog.join('\n')
