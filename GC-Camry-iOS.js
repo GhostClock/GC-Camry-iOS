@@ -3,162 +3,171 @@
 // icon-color: purple; icon-glyph: car;
 
 // ------静态数据------
-// 背景图片
-const kBackgroundImage = "http://img1.tcdachun.com/180519/330808-1P51Z9454738.jpg"
-// 无数据背景图
-const kEmptyDataImage = "https://carappvideo.gtmc.com.cn//fs01//IFImage//carnetImage//img-819-PT-ZZB-089.png"
-// 丰田Icon  logo_black:黑色图标 logo_white:白色图标
-const kToyotaIconImage = "https://gitee.com/GhostClock/gc-camry-ios/raw/master/resource/logo_black.PNG"
-// App版本
-const appVersion = "4.18.0"
-// UserAgent
-const kUserAgent = `GTMC_CarOwner_Yonyou/${appVersion} (iPhone; iOS 15.2; Scale/3.00)Accept-Language: zh-Hans-CN;q=1, en-CN;q=0.9`
-// CookieKey
-const kUserInfoKey = "USERINFO_KEY"
-// 当前版本号
-const kCurrentVersion = "1.0.3"
-// ContentType
-const kContentTypeUrlencoded = "application/x-www-form-urlencoded"
-const kContentTypeJson = "application/json"
-// 警告信息
-const kWarningMsg = [
-  {
+const CONST_DATA = {
+  // App版本
+  AppVersion: "4.18.0",
+  // UserAgent
+  UserAgent: `GTMC_CarOwner_Yonyou/${this.AppVersion} (iPhone; iOS 15.2; Scale/3.00)Accept-Language: zh-Hans-CN;q=1, en-CN;q=0.9`,
+  // CookieKey
+  UserInfoKey: "USERINFO_KEY",
+  // 车架号信息
+  VinInfoKey: "VIN_INFO_KEY",
+  // 当前版本号
+  CurrentVersion: "1.3.1",
+  // ContentType
+  ContentTypeUrlencoded: "application/x-www-form-urlencoded",
+  ContentTypeJson: "application/json",
+  // 警告信息
+  WarningMsg: [ 
+    {
     "warnType": "V003",
     "warnTypeName": "右后门未关"
-  },
-  {
-    "warnType": "V004",
-    "warnTypeName": "左后门未关"
-  },
-  {
-    "warnType": "V005",
-    "warnTypeName": "右前门未关"
-  },
-  {
-    "warnType": "V006",
-    "warnTypeName": "左前门未关",
-  },
-  {
-    "warnType": "V134",
-    "warnTypeName": "发动机罩未关"
-  },
-  {
-    "warnType": "V143",
-    "warnTypeName": "左前门未锁",
-  },
-  {
-    "warnType": "V145",
-    "warnTypeName": "右后车窗未关"
-  },
-  {
-    "warnType": "V146",
-    "warnTypeName": "左后车窗未关"
-  },
-  {
-    "warnType": "V147",
-    "warnTypeName": "右前车窗未关"
-  },
-  {
-    "warnType": "V148",
-    "warnTypeName": "左前车窗未关"
-  },
-  {
-    "warnType": "V149",
-    "warnTypeName": "天窗未关"
-  },
-  {
-    "warnType": "V172",
-    "warnTypeName": "左后门未锁"
-  },
-  {
-    "warnType": "V173",
-    "warnTypeName": "右前门未锁"
-  },
-  {
-    "warnType": "V174",
-    "warnTypeName": "右后门未锁"
-  },
-  {
-    "warnType": "V229",
-    "warnTypeName": "闪光灯未关"
-  },
-  {
-    "warnType": "V408",
-    "warnTypeName": "尾灯未关"
-  },
-  {
-    "warnType": "V409",
-    "warnTypeName": "大灯未关"
+    },
+    {
+      "warnType": "V004",
+      "warnTypeName": "左后门未关"
+    },
+    {
+      "warnType": "V005",
+      "warnTypeName": "右前门未关"
+    },
+    {
+      "warnType": "V006",
+      "warnTypeName": "左前门未关",
+    },
+    {
+      "warnType": "V134",
+      "warnTypeName": "发动机罩未关"
+    },
+    {
+      "warnType": "V143",
+      "warnTypeName": "左前门未锁",
+    },
+    {
+      "warnType": "V145",
+      "warnTypeName": "右后车窗未关"
+    },
+    {
+      "warnType": "V146",
+      "warnTypeName": "左后车窗未关"
+    },
+    {
+      "warnType": "V147",
+      "warnTypeName": "右前车窗未关"
+    },
+    {
+      "warnType": "V148",
+      "warnTypeName": "左前车窗未关"
+    },
+    {
+      "warnType": "V149",
+      "warnTypeName": "天窗未关"
+    },
+    {
+      "warnType": "V172",
+      "warnTypeName": "左后门未锁"
+    },
+    {
+      "warnType": "V173",
+      "warnTypeName": "右前门未锁"
+    },
+    {
+      "warnType": "V174",
+      "warnTypeName": "右后门未锁"
+    },
+    {
+      "warnType": "V229",
+      "warnTypeName": "闪光灯未关"
+    },
+    {
+      "warnType": "V408",
+      "warnTypeName": "尾灯未关"
+    },
+    {
+      "warnType": "V409",
+      "warnTypeName": "大灯未关"
+    }
+  ],
+  // 组件尺寸
+  DeviceSize: {
+    '428x926': {
+      small: { width: 176, height: 176 },
+      medium: { width: 374, height: 176 },
+      large: { width: 374, height: 391 }
+    },
+    '390x844': {
+      small: { width: 161, height: 161 },
+      medium: { width: 342, height: 161 },
+      large: { width: 342, height: 359 }
+    },
+    '414x896': {
+      small: { width: 169, height: 169 },
+      medium: { width: 360, height: 169 },
+      large: { width: 360, height: 376 }
+    },
+    '375x812': {
+      small: { width: 155, height: 155 },
+      medium: { width: 329, height: 155 },
+      large: { width: 329, height: 345 }
+    },
+    '414x736': {
+      small: { width: 159, height: 159 },
+      medium: { width: 348, height: 159 },
+      large: { width: 348, height: 357 }
+    },
+    '375x667': {
+      small: { width: 148, height: 148 },
+      medium: { width: 322, height: 148 },
+      large: { width: 322, height: 324 }
+    }, 
+    '320x568': {
+      small: { width: 141, height: 141 },
+      medium: { width: 291, height: 141 },
+      large: { width: 291, height: 299 }
+    }
   }
-]
-// 组件尺寸
-const kDeviceSize = {
-  '428x926': {
-    small: { width: 176, height: 176 },
-    medium: { width: 374, height: 176 },
-    large: { width: 374, height: 391 }
-  },
-  '390x844': {
-    small: { width: 161, height: 161 },
-    medium: { width: 342, height: 161 },
-    large: { width: 342, height: 359 }
-  },
-  '414x896': {
-    small: { width: 169, height: 169 },
-    medium: { width: 360, height: 169 },
-    large: { width: 360, height: 376 }
-  },
-  '375x812': {
-    small: { width: 155, height: 155 },
-    medium: { width: 329, height: 155 },
-    large: { width: 329, height: 345 }
-  },
-  '414x736': {
-    small: { width: 159, height: 159 },
-    medium: { width: 348, height: 159 },
-    large: { width: 348, height: 357 }
-  },
-  '375x667': {
-    small: { width: 148, height: 148 },
-    medium: { width: 322, height: 148 },
-    large: { width: 322, height: 324 }
-  }, 
-  '320x568': {
-    small: { width: 141, height: 141 },
-    medium: { width: 291, height: 141 },
-    large: { width: 291, height: 299 }
-  }
-}
 
+}
 // ------静态数据结束------
 
 // ------请求URL------
-// 汽车VIM信息URL
-const CarVinInfoURL = "https://carapp.gtmc.com.cn/api/appgtmc/AppRepairRecordAction/loadUserData.json"
-// 汽车经纬度URL
-const CarPositionInfoURL = "https://carapp.gtmc.com.cn/api/vhcApp/vhcNet/getVhcPositionInfo"
-// 经纬度逆编码URL
-function CarPositionAddressURL(ak, latitude, longitude) {
-  return `https://api.map.baidu.com/reverse_geocoding/v3/?ak=${ak}&output=json&coordtype=wgs84ll&location=${latitude},${longitude}&radius=1000&pois=1&coordtype=bd09ll&page_size=1&extensions_poi=1`
+const CAR_BASE_API = "https://carapp.gtmc.com.cn/api/"
+const BAIDU_BASE_API = "https://api.map.baidu.com/"
+const CAR_REQUEST_URL = {
+  // 汽车VIM信息URL
+  VinInfoURL: `${CAR_BASE_API}appgtmc/AppRepairRecordAction/loadUserData.json`,
+  // 汽车经纬度URL
+  PositionInfoURL: `${CAR_BASE_API}vhcApp/vhcNet/getVhcPositionInfo`,
+  // 获取当前车辆信息(油耗，里程等)
+  CurrentInfoURL: (phone, userId, vin) =>
+    `${CAR_BASE_API}vhcApp/vhcNet/refreshVhcCondition?appVersion=${CONST_DATA.AppVersion}&carCode=&fyxDevice=2&phone=${phone}&type=&userId=${userId}&vin=${vin}`,
+  // 获取当前车辆信息(名称，图片，车牌号等)
+  CurrentVHCInfoURL: (phone, userId, vin) => 
+    `${CAR_BASE_API}vhcApp/vhcNet/vhcInfo?appVersion=${CONST_DATA.AppVersion}&basePage=1&carCode=&fyxDevice=2&phone=${phone}&showPopup=1&userId=${userId}&vin=${vin}`,
+  // 获取警告信息
+  WarningMsgURL: (phone, userId, vin) => 
+    `${CAR_BASE_API}vhcApp/warning/warningMsg?appVersion=${CONST_DATA.AppVersion}.0&carCode=5&fyxDevice=2&phone=${phone}&userId=${userId}&vin=${vin}`,
+  
+    // 经纬度逆编码URL
+  BaiduPositionAddressURL: (ak, latitude, longitude) => 
+    `${BAIDU_BASE_API}reverse_geocoding/v3/?ak=${ak}&output=json&coordtype=wgs84ll&location=${latitude},${longitude}&radius=1000&pois=1&coordtype=bd09ll&page_size=1&extensions_poi=1`,
+  // 百度静态图片
+  BaiduStaticPicURL: (ak, longitude, latitude, size) => 
+    `${BAIDU_BASE_API}staticimage/v2?ak=${ak}&center=${longitude},${latitude}&width=${size.width}&height=${size.height}&zoom=15&copyright=1`,
+  
+  // 更新文件
+  UpdateVersionURL: "https://gitee.com/GhostClock/gc-camry-ios/raw/master/version.json",
+  // 手机抓包教程
+  CaptureData: 'https://www.cnblogs.com/hong-fithing/p/12562448.html',
+  // 打赏作者
+  ActionDonation: 'https://gitee.com/GhostClock/gc-camry-ios/tree/master#6%E6%89%93%E8%B5%8F',
+  // 背景图片
+  BackgroundImage: "http://img1.tcdachun.com/180519/330808-1P51Z9454738.jpg",
+  // 无数据背景图
+  EmptyDataImage: "https://carappvideo.gtmc.com.cn//fs01//IFImage//carnetImage//img-819-PT-ZZB-089.png",
+  // 丰田Icon  logo_black:黑色图标 logo_white:白色图标
+  ToyotaIconImage: "https://gitee.com/GhostClock/gc-camry-ios/raw/master/resource/logo_black.PNG",
 }
-// 获取当前车辆信息(油耗，里程等)
-function CarCurrentInfoURL(phone, userId, vin) {
-  return `https://carapp.gtmc.com.cn/api/vhcApp/vhcNet/refreshVhcCondition?appVersion=${appVersion}&carCode=&fyxDevice=2&phone=${phone}&type=&userId=${userId}&vin=${vin}`
-}
-// 获取当前车辆信息(名称，图片，车牌号等)
-function CarCurrentVHCInfoURL(phone, userId, vin) {
-  return `https://carapp.gtmc.com.cn/api/vhcApp/vhcNet/vhcInfo?appVersion=${appVersion}&basePage=1&carCode=&fyxDevice=2&phone=${phone}&showPopup=1&userId=${userId}&vin=${vin}`
-}
-// 获取警告信息
-function CarWarningMsgURL(phone, userId, vin) {
-  return `https://carapp.gtmc.com.cn/api/vhcApp/warning/warningMsg?appVersion=${appVersion}.0&carCode=5&fyxDevice=2&phone=${phone}&userId=${userId}&vin=${vin}`
-}
-// 百度静态图片
-function BaiduStaticPicURL(ak, longitude, latitude, size) {
-  return `https://api.map.baidu.com/staticimage/v2?ak=${ak}&center=${longitude},${latitude}&width=${size.width}&height=${size.height}&zoom=15&copyright=1`
-}
-// 更新文件
-const kUpdateVersionURL = "https://gitee.com/GhostClock/gc-camry-ios/raw/master/version.json"
 // ------请求URL结束------
 
 class Base {
@@ -172,7 +181,7 @@ class Base {
     // 组件大小：small,medium,large
     this.debugLog("组件初始化")
     this.widgetFamily = widgetFamily
-    this.userInfo = this.getUserInfo()
+    this.userInfo = this.getUserInfoDetail()
   }
 
   // 注册点击操作菜单
@@ -182,31 +191,91 @@ class Base {
 
   //--------Cookie--------
   // 获取Cookie信息
-  getUserInfo() {
-    let userInfo = ""
-    if (Keychain.contains(kUserInfoKey)) {
-      userInfo = Keychain.get(kUserInfoKey)
+  _getUserInfo() {
+    if (Keychain.contains(CONST_DATA.UserInfoKey)) {
+      return Keychain.get(CONST_DATA.UserInfoKey)
     }
-    return userInfo
+    return ""
   }
   // 设置Cookie信息
   setUserInfo(userInfo) {
-    Keychain.set(kUserInfoKey, userInfo)
+    let _userInfo = JSON.stringify(userInfo)
+    Keychain.set(CONST_DATA.UserInfoKey, _userInfo)
   }
-  // 移除Cookie信息
+  // 只移除Cookie,UserID, 电话，车架号
+  // 保留百度AK
   removeUserInfo() {
-    Keychain.remove(kUserInfoKey)
+    if (Keychain.contains(CONST_DATA.UserInfoKey)) {
+      Keychain.remove(CONST_DATA.UserInfoKey)
+
+      this.userInfo.cookie = ""
+      this.userInfo.userId = ""
+      this.userInfo.phone = ""
+      this.setUserInfo(this.userInfo)
+    }
+    // 移除车架号
+    this.removeVINInfo()
   }
+  // 获取用户详细信息
+  getUserInfoDetail() {
+    var _cookie = ""
+    var _userId = ""
+    var _phone = ""
+    var _ak = ""
+    if (this._getUserInfo().length > 0) {
+      let cache = this._getUserInfo()
+      // 兼容旧版本
+      let list = cache.split(" ")
+      if (list.length >= 4) {
+        _cookie = list[0]
+        _userId = list[1]
+        _phone = list[2]
+        _ak = list[3]
+      } else {
+        let _userInfo = JSON.parse(cache)
+        this.userInfo = _userInfo
+        _cookie = _userInfo.cookie
+        _userId = _userInfo.userId
+        _phone = _userInfo.phone
+        _ak = _userInfo.ak
+      }
+    }
+    return { cookie: _cookie, userId: _userId, phone: _phone, ak: _ak }
+  }
+  // 缓存车架号
+  setVINInfo(vinInfo) {
+    let _vinInfo = JSON.stringify(vinInfo)
+    Keychain.set(CONST_DATA.VinInfoKey, _vinInfo)
+  }
+  // 得到车架号
+  getVINInfo() {
+    var _vinInfo = {vin: "", vhcGradeCode: ""}
+    if (Keychain.contains(CONST_DATA.VinInfoKey)) {
+      let vinInfo = Keychain.get(CONST_DATA.VinInfoKey)
+      _vinInfo = JSON.parse(vinInfo)
+    }
+    return _vinInfo
+  }
+  // 移除车架号
+  removeVINInfo() {
+    if (Keychain.contains(CONST_DATA.VinInfoKey)) {
+      Keychain.remove(CONST_DATA.VinInfoKey)
+    }
+  }
+
   //--------网络请求--------
   // 封装的网络请求
   // POST 请求
   async PostRequest(url, contentType, body, cookie) {
     let header = {
       "type": "1",
-      "User-Agent": kUserAgent,
-      "Authorization": cookie,
-      "appVersion": `${appVersion}`,
+      "Connection": "keep-alive",
+      "Accept": "*/*",
+      "Host": "carapp.gtmc.com.cn",
       "fyxDevice": "2",
+      "User-Agent": CONST_DATA.UserAgent,
+      "Authorization": cookie,
+      "appVersion": `${CONST_DATA.AppVersion}`,
       "Content-Type": contentType
     }
     log(`开始POST网络请求: ${url}`)
@@ -214,19 +283,25 @@ class Base {
     request.headers = header
     request.method = "POST"
     request.body = JSON.stringify(body)
-    return await (contentType == kContentTypeUrlencoded) ? request.loadString() : request.loadJSON()
+    return await (contentType == CONST_DATA.ContentTypeUrlencoded) ? request.loadString() : request.loadJSON()
   }
 
   // GET 请求  
-  async GetRequest(url, contentType, cookie) {
+  async GetRequest(url, contentType, cookie = '') {
     let request = new Request(url)
-    let header = {
+    var header = {
       "type": "1",
-      "User-Agent": kUserAgent,
-      "Authorization": cookie,
-      "appVersion": `${appVersion}`,
+      "Connection": "keep-alive",
+      "Accept": "*/*",
+      "Host": "carapp.gtmc.com.cn",
       "fyxDevice": "2",
+      "User-Agent": CONST_DATA.UserAgent,
+      "Authorization": cookie,
+      "appVersion": `${CONST_DATA.AppVersion}`,
       "Content-Type": contentType
+    }
+    if (cookie.length == 0) {
+      header = {}
     }
     log(`开始GET网络请求: ${url}`)
     request.headers = header
@@ -480,7 +555,7 @@ class Base {
     return spaceStack
   }
 
-  testShowAlert(message) {
+  showAlert(message) {
     const alert = new Alert()
     alert.title = "提示"
     alert.message = message
@@ -543,37 +618,25 @@ class Widget extends Base {
     this.styleType = arg
     this.name = '凯美瑞 小组件'
     this.desc = '丰田凯美瑞 车辆桌面组件展示'
-    this.cookie = ''
-    this.userId = ''
-    this.phone = ''
-    this.ak = ''
 
+    this.cookie = `${this.userInfo.cookie}`
+    this.userId = `${this.userInfo.userId}`
+    this.phone = `${this.userInfo.phone}`
+    this.ak = `${this.userInfo.ak}`
     if (config.runsInApp) {
       // 1.获取cookie和userID
-      if (this.userInfo.length == 0) {
+      if (this.cookie.length == 0) {
         // 2.如果没有获取到,弹出Alert让其输入
         this.registerAction('获取用户信息', this.actionUserInfo)
       } else {
-        let _userInfo = this.userInfo.split(" ")
-        this.cookie = `${_userInfo[0]}`
-        this.userId = `${_userInfo[1]}`
-        this.phone = `${_userInfo[2]}`
-        this.ak = `${_userInfo[3]}`
-
         this.NetworkingAction(this.cookie, this.userId, this.phone, this.ak)
       }
       this.registerAction('移除用户信息', this.removeUserInfo)
       this.registerAction('抓包教程', this.captureData)  
-      this.registerAction("检查更新", this.checkUpdate)
+      this.registerAction("检查更新",  this.actionCheckUpdate)
       this.registerAction('打赏作者', this.actionDonation)
-      this.registerAction('当前版本: v' + kCurrentVersion, () => {})
+      this.registerAction('当前版本: v' + CONST_DATA.CurrentVersion, () => {})
     } else if (config.runsInWidget) {
-
-      let _userInfo = this.userInfo.split(" ")
-      this.cookie = `${_userInfo[0]}`
-      this.userId = `${_userInfo[1]}`
-      this.phone = `${_userInfo[2]}`
-      this.ak = `${_userInfo[3]}`
       if (this.cookie.length > 0 && this.userId.length > 0 && this.phone.length > 0 && this.ak.length > 0) {
         this.NetworkingAction(this.cookie, this.userId, this.phone, this.ak)
       }
@@ -587,7 +650,7 @@ class Widget extends Base {
   async render() {
     let data = await this.getData()
     const screenSize = Device.screenSize()
-    const size = kDeviceSize[`${screenSize.width}x${screenSize.height}`] || DEVICE_SIZE['428x926']
+    const size = CONST_DATA.DeviceSize[`${screenSize.width}x${screenSize.height}`] || DEVICE_SIZE['428x926']
     if (data) {
       if (typeof data === 'object') {
         switch (this.widgetFamily) {
@@ -694,9 +757,11 @@ class Widget extends Base {
     textContentStack.layoutVertically()
     textContentStack.size = new Size(leftBgStack.size.width - leftSpaceStack.size.width, leftBgStack.size.height)
 
+    // 可以在这里定制化你自己想要的Title,建议不要太长，因为可能显示不下 
+    // 例如：`凯美瑞 ${data.vhcGradeCode} 豪华版(${data.registNo})` registNo为车牌号，
     let titleString = `CAMRY ${data.vhcGradeCode}`
     let title = textContentStack.addText(titleString)
-    title.font = Font.italicSystemFont(21)
+    title.font = Font.boldSystemFont(20) // 这里可以修改字体，默认为斜体,想改为斜体的话：italicSystemFontboldSystemFont(21)
     title.textColor = Color.black()
     
     // 剩余油量
@@ -752,7 +817,7 @@ class Widget extends Base {
     let logoContentStack = rightGradientStack.addStack()
     logoContentStack.layoutHorizontally()
     logoContentStack.size = new Size(rightGradientStack.size.width - 15, 20)
-    let logoData = await this.loadImage(kToyotaIconImage)
+    let logoData = await this.loadImage(CAR_REQUEST_URL.ToyotaIconImage)
 
     this.addClearSpace(logoContentStack, logoContentStack.size.width - 80, 20)// 
 
@@ -781,7 +846,7 @@ class Widget extends Base {
    */
   async renderLarge(size, data) {
     let widget = new ListWidget()
-    widget.backgroundImage = await this.shadowImage(await this.loadImage(kEmptyDataImage))
+    widget.backgroundImage = await this.shadowImage(await this.loadImage(CAR_REQUEST_URL.EmptyDataImage))
     // TODO
     let text = widget.addText('大尺寸组件正在开发，敬请期待')
     text.font = this._Font(18)
@@ -795,7 +860,7 @@ class Widget extends Base {
   async renderEmpty() {
     const widget = new ListWidget()
 
-    widget.backgroundImage = await this.shadowImage(await this.loadImage(kEmptyDataImage))
+    widget.backgroundImage = await this.shadowImage(await this.loadImage(CAR_REQUEST_URL.EmptyDataImage))
 
     const text = widget.addText('欢迎使用 Camry 小组件')
     switch (this.widgetFamily) {
@@ -814,13 +879,12 @@ class Widget extends Base {
 
     return widget
   }
-
   /**
    * 渲染错误信息
    */
   async renderError() {
     const widget = new ListWidget()
-    widget.backgroundImage = await this.shadowImage(await this.loadImage(kEmptyDataImage))
+    widget.backgroundImage = await this.shadowImage(await this.loadImage(CAR_REQUEST_URL.EmptyDataImage))
 
     const text = widget.addText("数据有误，请重新输入的用户信息")
     switch (this.widgetFamily) {
@@ -847,9 +911,10 @@ class Widget extends Base {
     const alert = new Alert()
     alert.title = '组件声明'
     alert.message = `
-    1.小组件需要使用到您的丰云行应用的账号，首次使用需要用到丰云行的令牌和用户信息，但是无法无法直接从该应用获取\n\r
-    2.小组件不会收集您的个人账户信息，所有账号信息将存在 iCloud 或者 iPhone 上但也请您妥善保管自己的账号\n\r
-    3.小组件是开源、并且完全免费的，由凯美瑞车主开发，所有责任与广汽丰田公司无关\n\r
+    1.小组件需要使用到您的丰云行应用的账号，首次使用需要用到丰云行的令牌和用户信息，但是无法无法直接从该应用获取\n
+    2.小组件不会收集您的个人账户信息，所有账号信息将存在 iCloud 或者 iPhone 上但也请您妥善保管自己的账号\n
+    3.小组件是开源、并且完全免费的，由凯美瑞车主开发，所有责任与广汽丰田公司无关\n
+    4.如果第一次使用，需要您输入Cookie信息和百度AK，但是如果是非第一次使用，为了操作方便，本地缓存了百度AK\n
     开发者: GhostClock\n\r
     `
     alert.addAction('同意')
@@ -860,40 +925,46 @@ class Widget extends Base {
   }
 
   async _userInfo() {
-    log("_userInfo")
     var alert = new Alert()
     alert.title = "登录数据"
     alert.addTextField("请粘贴您抓取的数据", "")
-    alert.addTextField("请输入百度地图的AK", "")
+    let _ak = this.userInfo.ak
+    let showAKTextField = _ak.length == 0
+    if (showAKTextField) {
+      // 本地没有保存的百度AK
+      alert.addTextField("请输入百度地图的AK", "")
+    }
     alert.addAction("确定")
     alert.addCancelAction("取消")
-
     const id = await alert.presentAlert()
     if (id === -1) return
     let userInfo = alert.textFieldValue(0)
-    let ak = alert.textFieldValue(1)
+    if (showAKTextField) {
+      // 本地没有保存的百度AK
+      _ak = alert.textFieldValue(1)
+    }
     try {
       let jsonData = JSON.parse(userInfo)
       // 解析数据
-      var cookie = jsonData["data"]["jwt"]
-      var userId = jsonData["data"]["rData"]["userId"]
-      var phone = jsonData["data"]["rData"]["telPhone"]
-      log(userId + "-" + phone)
+      let _cookie = jsonData["data"]["jwt"]
+      let _userId = jsonData["data"]["rData"]["userId"]
+      let _phone = jsonData["data"]["rData"]["telPhone"]
       // 本地保存数据
-      let cacheUserInfo = cookie + " " + userId + " " + phone + " " + ak
+      let cacheUserInfo = {cookie: _cookie, userId: _userId, phone: _phone, ak: _ak}
       this.setUserInfo(cacheUserInfo)
+      log(`更新后本地保存的信息: ${cacheUserInfo.userId + " " + cacheUserInfo.phone}`);
         // 开始执行本地逻辑
-      this.NetworkingAction(cookie, userId, phone, ak)
+      this.NetworkingAction(_cookie, _userId, _phone, _ak)
       this.notify('设置成功', '桌面组件稍后将自动刷新')
     } catch (error) {
       log(error)
-      this.testShowAlert("请输入正确的数据")
+      this.showAlert("请输入正确的数据")
     }
   }
 
   async getData() {
     // 判断用户是否已经登录
-    return (Keychain.contains(kUserInfoKey) && this.userInfo.length > 0) ? await this.bootstrap() : false
+    return (Keychain.contains(CONST_DATA.UserInfoKey) && this.userInfo.cookie.length > 0) ? await this.bootstrap() : false
   }
 
   async bootstrap() {
@@ -913,27 +984,50 @@ class Widget extends Base {
       longitude: "", //经度
       latitude: "", // 维度
       warningMsg: "", //警告信息
-      resultCode: "",
+      errMsg: "",
+      resultCode: "", // resultCode != 1 || resultCode != 200的时候errMsg有数据信息
       vhcGradeCode: "", // 汽车型号
       refreshDate: this.getRefreshDate() //刷新时间
     }
-    // 1.必须先获取车架号
-    let vinInfo = await this.RequestCarVinInfo(cookie, userId)
-    if (typeof vinInfo != 'object') {
-      this.removeUserInfo()
-      this.notify("提示", "所有用户信息都已经清除")
-      return vinInfo
-    }
+    // 1.必须先获取车架号 -> 经测试这个接口特别容易失败，所以做缓存处理
+    // 先从本地缓存取
+    let vinInfo = this.getVINInfo()
+    let vin = vinInfo.vin
+    let vhcGradeCode = vinInfo.vhcGradeCode
     log(vinInfo)
-    carInfoData.vin = vinInfo.vin
-    carInfoData.vhcGradeCode = vinInfo.vhcGradeCode
+    if (vin.length == 0) {
+      log("本地无车架号和车型，开始请求车架号和车型")
+      // 本地缓存取不到就去请求网络
+      let _vinInfo = await this.RequestCarVinInfo(cookie, userId)
+      carInfoData.resultCode = _vinInfo.resultCode
+      carInfoData.errMsg = _vinInfo.errMsg
+      if (_vinInfo.resultCode != '1') {
+        this.cookitInvalid(_vinInfo.errMsg)
+        return vinInfo
+      }
+      vin = _vinInfo.vin
+      vhcGradeCode = _vinInfo.vhcGradeCode
+
+      this.setVINInfo({vin: vin, vhcGradeCode: vhcGradeCode})
+    } 
+    carInfoData.vin = vin
+    carInfoData.vhcGradeCode = vhcGradeCode
     this.debugLog(`车架号: ${carInfoData.vin}`)
+
     // 2.获取汽车位置
     let positionData = await this.RequestCarPosition(cookie, phone, userId, carInfoData.vin, ak)
+    carInfoData.resultCode = positionData.resultCode
+    carInfoData.errMsg = positionData.errMsg
+    if (positionData.resultCode != 200) {
+      this.cookitInvalid(positionData.errMsg)
+      return positionData
+    }
+
     carInfoData.address = positionData.address
     carInfoData.longitude = positionData.longitude
     carInfoData.latitude = positionData.latitude
     this.debugLog(`汽车地址: ${carInfoData.address} ${carInfoData.longitude}-${carInfoData.latitude}`)
+
     // 3.获取当前车辆信息(油耗，里程等)  
     let currentInfo = await this.RequestCarCurrentInfo(phone, cookie, userId, carInfoData.vin)
     carInfoData.fuelPro = currentInfo.fuelPro
@@ -950,30 +1044,38 @@ class Widget extends Base {
 
     // 5.获取门窗警告信息
     let warningInfo = await this.CarWarningMsg(phone, userId, cookie, carInfoData.vin)  
-    log(warningInfo)
     carInfoData.warningMsg = warningInfo.warningMsg
-    var doorInfo = carInfoData.warningMsg.length > 0 ? `${warningMsg}` : "所有门窗都已经关好"
+    var doorInfo = carInfoData.warningMsg.length > 0 ? `${carInfoData.warningMsg}` : "所有门窗都已经关好"
     this.debugLog(`门窗信息: ${doorInfo}`)
     return carInfoData
+  }
+  // Cookie失效
+  cookitInvalid(errMsg) {
+    this.removeUserInfo()
+    this.notify("提示", `所有用户信息都已经清除(${errMsg})`)
   }
 
   //-----网络请求-----
   // 获取车架号信息
   async RequestCarVinInfo(cookie, userId) {
-    let body = `appVersion=${appVersion}&fyxDevice=2&userId=${userId}&versionType=1230`
-    let stringData = await this.PostRequest(CarVinInfoURL, kContentTypeUrlencoded, body, cookie)
+    let body = `appVersion=${CONST_DATA.AppVersion}&fyxDevice=2&userId=${userId}&versionType=1230`
+    let stringData = await this.PostRequest(CAR_REQUEST_URL.VinInfoURL, CONST_DATA.ContentTypeUrlencoded, body, cookie)
     let jsonData = JSON.parse(stringData)
     let resultCode = jsonData.resultCode
-    if (resultCode != "1") {
+    let errMsg = jsonData.errMsg
+    if (resultCode == 40303) {
       // Cookie过期
-      log(`Cookie已经过期, errorCode: ${resultCode}`)
-      return resultCode
-    }
+      log(`请求车架号接口时检测到Cookie已经过期, Code: ${resultCode}, message: ${errMsg}`)
+      return {resultCode: resultCode, errMsg: errMsg}
+    } else if(resultCode != "1") {
+      log(`丰云行后台出问题, Code: ${resultCode}, message: ${errMsg}`)
+      return {resultCode: resultCode, errMsg: errMsg}
+    } else {}
     let row = jsonData.data.rows[0]
     let _vin = row.vin
     let _vhcGradeCode = row.vhcGradeCode
     _vhcGradeCode = _vhcGradeCode.split(" ")[1]
-    return { vin: _vin, vhcGradeCode: _vhcGradeCode}
+    return {resultCode: resultCode, errMsg: errMsg,  vin: _vin, vhcGradeCode: _vhcGradeCode}
   }
 
   // 获取汽车经纬度信息 -> 地理反编码
@@ -983,29 +1085,38 @@ class Widget extends Base {
       "vin": vin,
       "userId": userId,
     }
-    let data = await this.PostRequest(CarPositionInfoURL, kContentTypeJson, body, cookie)
+    let data = await this.PostRequest(CAR_REQUEST_URL.PositionInfoURL, CONST_DATA.ContentTypeJson, body, cookie)
+    let resultCode = data.resultCode
+    let errMsg = data.errMsg
+    if (resultCode == 40303) {
+      log(`请求汽车经纬度时接口市检测到Cookie已经过期, Code: ${resultCode}, message: ${errMsg}`)
+      return {resultCode: resultCode, errMsg: errMsg}
+    } else if(resultCode != 200) {
+      log(`丰云行后台出问题, Code: ${resultCode}, message: ${errMsg}`)
+      return {resultCode: resultCode, errMsg: errMsg}
+    } else {}
     var longitude = data["data"]["longitude"]
     var latitude = data["data"]["latitude"]
     log(longitude + " " + latitude)
     // 地理反编码
-    var url = CarPositionAddressURL(ak, latitude, longitude)
-    let result = await this.GetRequest(url, kContentTypeJson, '')
-    var addressComponent = result["result"]["addressComponent"]
+    let url = CAR_REQUEST_URL.BaiduPositionAddressURL(ak, latitude, longitude)
+    let resultData = await this.GetRequest(url, CONST_DATA.ContentTypeJson, '')
+    var addressComponent = resultData["result"]["addressComponent"]
     let city = addressComponent.city
     var district = addressComponent["district"]
     var street = addressComponent["street"]
-    var _address = street
-    return { address: `${city}${district}${_address}`, longitude: `${longitude}`, latitude: `${latitude}` }
+    var _address = `${city}${district}${street}`
+    return {resultCode: resultCode, errMsg: errMsg, address: `${_address}`, longitude: `${longitude}`, latitude: `${latitude}` }
   }
   // 请求百度静态图片
   async RequestBDStaticPic(ak, longitude, latitude, size) {
-    let staticPicUrl = BaiduStaticPicURL(ak, longitude, latitude, size)
+    let staticPicUrl = CAR_REQUEST_URL.BaiduStaticPicURL(ak, longitude, latitude, size)
     return await this.loadImage(staticPicUrl)
   }
   // 获取当前车辆信息(油耗，里程等)
   async RequestCarCurrentInfo(phone, cookie, userId, vin) {
-    var url = CarCurrentInfoURL(phone, userId, vin)
-    let jsonData = await this.GetRequest(url, kContentTypeJson, cookie)
+    let url = CAR_REQUEST_URL.CurrentInfoURL(phone, userId, vin)
+    let jsonData = await this.GetRequest(url, CONST_DATA.ContentTypeJson, cookie)
     /*
       "fuelPro": 25.0, 剩余油量
       "mileageVeh": 123.0, 续航
@@ -1016,19 +1127,20 @@ class Widget extends Base {
       "fuelFilledWearAvg": 9.2, 当前油耗
     */
     var data = jsonData["data"]
-    var _mileageTotal = data["mileageTotal"]
-    var _mileageVeh = data["mileageVeh"]
-    var _fuelPro = data["fuelPro"]
     return {
-      mileageTotal: _mileageTotal,
-      mileageVeh: _mileageVeh,
-      fuelPro: _fuelPro
+      mileageTotal: data["mileageTotal"],
+      mileageVeh:  data["mileageVeh"],
+      fuelPro: data["fuelPro"],
+      mileageCounterA: data["mileageCounterA"],
+      mileageCounterB: data["mileageCounterB"],
+      fuelWearAvg: data["fuelWearAvg"],
+      fuelFilledWearAvg: data["fuelFilledWearAvg"],
     }
   }
   // 获取当前车辆信息(名称，图片，车牌号等)
   async CarCurrentVHCInfo(phone, userId, cookie, vin) {
-    var url = CarCurrentVHCInfoURL(phone, userId, vin)
-    var contentType = `${kContentTypeJson};charset=UTF-8`
+    let url = CAR_REQUEST_URL.CurrentVHCInfoURL(phone, userId, vin)
+    var contentType = `${CONST_DATA.ContentTypeJson};charset=UTF-8`
     let jsonData = await this.GetRequest(url, contentType, cookie)
     var data = jsonData["data"]
     /*
@@ -1036,25 +1148,21 @@ class Widget extends Base {
         "vhcName": "全新第八代凯美瑞", 名称
         "modelCode": "MXV", 
         "modelImage": "https://carappvideo.gtmc.com.cn/fs01/IFImage/carnetImage/img-819-PT-ZZB-089.png", // 图片
-      */
-    var _registNo = data["registNo"]
-    var _vhcName = data["vhcName"]
-    var _modelImage = data["modelImage"]
-    log(_modelImage)
+    */
     return {
-      registNo: _registNo,
-      vhcName: _vhcName,
-      modelImage: _modelImage
+      registNo: data["registNo"],
+      vhcName: data["vhcName"],
+      modelImage: data["modelImage"]
     }
   }
   // 获取车辆门窗信息
   async CarWarningMsg(phone, userId, cookie, vin) {
-    let url = CarWarningMsgURL(phone, userId, vin)
-    let result = await this.GetRequest(url, kContentTypeJson, cookie)
+    let url = CAR_REQUEST_URL.WarningMsgURL(phone, userId, vin)
+    let result = await this.GetRequest(url, CONST_DATA.ContentTypeJson, cookie)
     let warnTypes = result.data.warnTypes
     let msg = ""
     for (let index in warnTypes) {
-      let localItem = kWarningMsg[index]
+      let localItem = CONST_DATA.WarningMsg[index]
       let item = warnTypes[index]
       if (item.warnType == localItem.warnType && item.existStatus != 1) {
         msg += `${localItem.warnTypeName} `
@@ -1062,49 +1170,41 @@ class Widget extends Base {
     }
     return { warningMsg: msg }
   }
-  // 检查更新
-  async CheckUpdateAction() {
-    const UPDATE_FILE = 'GC-Camry-iOS.js'
-    const FILE_MGR = FileManager[module.filename.includes('Documents/iCloud~') ? 'iCloud' : 'local']()
-    const request = new Request(kUpdateVersionURL)
-    const responseString = await request.loadJSON()
-    log(responseString)
-    let response = JSON.parse(responseString)
-    console.log(`远程版本：${response?.version}`)
-    if (response?.version === kCurrentVersion) return this.notify('无需更新', '远程版本一致，暂无更新')
-    console.log('发现新的版本')
-
-    const log = response?.changelog.join('\n')
-    const alert = new Alert()
-    alert.title = '更新提示'
-    alert.message = `是否需要升级到${response?.version.toString()}版本\n\r${log}`
-    alert.addAction('更新')
-    alert.addCancelAction('取消')
-    const id = await alert.presentAlert()
-    if (id === -1) return
-    await this.notify('正在更新中...')
-    const REMOTE_REQ = new Request(response?.download)
-    const REMOTE_RES = await REMOTE_REQ.load()
-    FILE_MGR.write(FILE_MGR.joinPath(FILE_MGR.documentsDirectory(), UPDATE_FILE), REMOTE_RES)
-
-    await this.notify('桌面组件更新完毕！')
-
-  }
 
   //-----网络请求结束-----
 
   // 手机抓包教程
   async captureData() {
-    Safari.open('https://www.cnblogs.com/hong-fithing/p/12562448.html')
+   Safari.open(CAR_REQUEST_URL.CaptureData)
   }
   // 打赏作者
-  async actionDonation() {
-    Safari.open('https://gitee.com/GhostClock/gc-camry-ios/tree/master#6%E6%89%93%E8%B5%8F')
+  async actionDonation() {    
+      Safari.open(CAR_REQUEST_URL.ActionDonation)
   }
   // 检查更新
-  async checkUpdate() {
-    const UPDATE_FILE = "GC-Camry-iOS"
-    await this.CheckUpdateAction()
+  async actionCheckUpdate() {
+    log(123)
+    let UPDATE_FILE = 'GC-Camry-iOS.js'
+    let FILE_MGR = FileManager[module.filename.includes('Documents/iCloud~') ? 'iCloud' : 'local']()
+    let url = CAR_REQUEST_URL.UpdateVersionURL
+    let response = await this.GetRequest(url, CONST_DATA.ContentTypeJson) 
+    console.log(`远程版本：${response.version}`)
+    if (response?.version === CONST_DATA.CurrentVersion) return this.notify('无需更新', '远程版本一致，暂无更新')
+    log('发现新的版本')
+    let logInfo = response.changelog.join('\n')
+    log(logInfo)
+    let alert = new Alert()
+    alert.title = '更新提示'
+    alert.message = `是否需要升级到${response.version}版本\n\r${logInfo}`
+    alert.addAction('更新')
+    alert.addCancelAction('取消')
+    let id = await alert.presentAlert()
+    if (id === -1) return
+    await this.notify('正在更新中...')
+    const REMOTE_REQ = new Request(response.download)
+    const REMOTE_RES = await REMOTE_REQ.load()
+    FILE_MGR.write(FILE_MGR.joinPath(FILE_MGR.documentsDirectory(), UPDATE_FILE), REMOTE_RES)
+    await this.notify('桌面组件更新完毕！')
   }
 }
 

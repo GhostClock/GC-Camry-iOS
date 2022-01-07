@@ -24,9 +24,11 @@
 
 ### 6.如果你不同意上面所说的，请立即关闭该文档，请不要使用，谢谢
 
-### 7.关于打开Stream打开抓包时，丰云行无法联网的问题，需要你在Stream白名单里面添加`carapp.gtmc.com.cn`即可，如下图添加白名单
+### 7.在设置白名单之前要先把CA证书安装好，要是先设置白名单，再去配置CA证书的话，会打不开下载CA证书的页面
 
-<img src="images/设置抓包模式.png" alt="设置抓包模式" style="zoom:20%;" /><img src="images/开启白名单模式.png" alt="开启白名单模式" style="zoom:20%;"/><img src="https://gitee.com/GhostClock/gc-camry-ios/raw/master/images/添加白名单.png" alt="添加白名单" style="zoom:30%;" />
+### 8.关于打开Stream打开抓包时，丰云行无法联网的问题，需要你在Stream白名单里面添加`carapp.gtmc.com.cn`即可，如下图添加白名单
+
+<img src="images/设置抓包模式.png" alt="设置抓包模式" style="zoom:20%;" /><img src="images/开启白名单模式.png" alt="开启白名单模式" style="zoom:20%;"/><img src="images/添加白名单.png" alt="添加白名单" style="zoom:30%;" />
 
 
 
@@ -55,6 +57,8 @@ Stream抓包使用方法请看(这里是教你怎么用Stream，和我们的目�
 因为只能得到汽车的经度和纬度，所以需要使用到百度地图进行地理反编码得到具体的地理位置
 
 ### 1.请先注册百度地图的开发者
+
+#### 注意：认证百度开发者需要您的身份证信息，这个信息是发生给百度的，我并没有得到您的身份证信息，要是不想认证百度开发者，请您麻烦关闭该文档，请不要使用，谢谢！！！
 
 注册开发者地址：https://lbsyun.baidu.com
 
@@ -106,13 +110,19 @@ Stream抓包使用方法请看(这里是教你怎么用Stream，和我们的目�
 
 ### <img src="images/carapp.gtmc.com.cn.png" alt="carapp.gtmc.com.cn" style="zoom:75%;" />
 
-### 5.在右上搜索关键字`AppUser.json`,点击确定<img src="images/AppUser.png" alt="AppUser" style="zoom:75%;" />
+### 5.在右上搜索关键字`AppUser.json`,点击确定(注意如果您是使用的密码登录，请搜索`appUserLogin.json`)
+
+### <img src="images/AppUser.png" alt="AppUser" style="zoom:75%;" />
 
 ### 6.在搜索记录点击该请求，再点击【响应】，【查看响应】
 
 ### 7.拷贝全部数据
 
-<img src="images/用户信息.png" alt="用户信息" style="zoom:75%;" />
+<img src="images/用户信息.png" alt="用户信息" style="zoom:50%;" />
+
+如果您不好复制，可以点击右上角的剪头-点击分享-拷贝
+
+<img src="images/分享.jpg" alt="分享" style="zoom:20%;" /><img src="images/拷贝.jpg" alt="拷贝" style="zoom:20%;" />
 
 ## 5.运行Scriptable
 
@@ -120,9 +130,7 @@ Stream抓包使用方法请看(这里是教你怎么用Stream，和我们的目�
 
 在弹出的输入第4步得到的Cookie信息和百度AK
 
-<img src="images/用户数据1.png" alt="用户数据1" style="zoom:50%;" />
-
-<img src="images/用户数据2.png" alt="用户数据2" style="zoom:60%;" />
+<img src="images/用户数据1.png" alt="用户数据1" style="zoom:50%;" /><img src="images/用户数据2.png" alt="用户数据2" style="zoom:60%;" />
 
 ## 6.添加小组件到桌面上
 
@@ -146,5 +154,7 @@ Stream抓包使用方法请看(这里是教你怎么用Stream，和我们的目�
 
 ## 8.加群
 
-算了，还是不放二维码了，因为微信的群二维码有效期才7天， 放了也没啥用
+点击链接加飞机群：
+
+https://t.me/GhostClock_Camary
 
