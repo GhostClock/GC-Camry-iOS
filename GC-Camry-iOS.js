@@ -191,7 +191,7 @@ class Base {
 
   //--------Cookie--------
   // 获取Cookie信息
-  getUserInfo() {
+  _getUserInfo() {
     if (Keychain.contains(CONST_DATA.UserInfoKey)) {
       return Keychain.get(CONST_DATA.UserInfoKey)
     }
@@ -199,35 +199,60 @@ class Base {
   }
   // 设置Cookie信息
   setUserInfo(userInfo) {
-    Keychain.set(CONST_DATA.UserInfoKey, userInfo)
+    let _userInfo = JSON.stringify(userInfo)
+    Keychain.set(CONST_DATA.UserInfoKey, _userInfo)
   }
-  // 移除Cookie信息
+  // 只移除Cookie,UserID, 电话，车架号
+  // 保留百度AK
   removeUserInfo() {
     if (Keychain.contains(CONST_DATA.UserInfoKey)) {
       Keychain.remove(CONST_DATA.UserInfoKey)
+
+      this.userInfo.cookie = ""
+      this.userInfo.userId = ""
+      this.userInfo.phone = ""
+      this.setUserInfo(this.userInfo)
     }
+    // 移除车架号
+    this.removeVINInfo()
   }
   // 获取用户详细信息
   getUserInfoDetail() {
-    this.userInfo = this.getUserInfo()
-    let _userInfo = this.userInfo.split(" ")
-    let _cookie = `${_userInfo[0]}`
-    let _userId = `${_userInfo[1]}`
-    let _phone = `${_userInfo[2]}`
-    let _baiduAk = `${_userInfo[3]}`
-    return { cookie: _cookie, userId: _userId, phone: _phone, ak: _baiduAk }
+    var _cookie = ""
+    var _userId = ""
+    var _phone = ""
+    var _ak = ""
+    if (this._getUserInfo().length > 0) {
+      let cache = this._getUserInfo()
+      // 兼容旧版本
+      let list = cache.split(" ")
+      if (list.length >= 4) {
+        _cookie = list[0]
+        _userId = list[1]
+        _phone = list[2]
+        _ak = list[3]
+      } else {
+        let _userInfo = JSON.parse(cache)
+        this.userInfo = _userInfo
+        _cookie = _userInfo.cookie
+        _userId = _userInfo.userId
+        _phone = _userInfo.phone
+        _ak = _userInfo.ak
+      }
+    }
+    return { cookie: _cookie, userId: _userId, phone: _phone, ak: _ak }
   }
   // 缓存车架号
   setVINInfo(vinInfo) {
-    Keychain.set(CONST_DATA.VinInfoKey, vinInfo)
+    let _vinInfo = JSON.stringify(vinInfo)
+    Keychain.set(CONST_DATA.VinInfoKey, _vinInfo)
   }
   // 得到车架号
   getVINInfo() {
-    let _vinInfo = {vin: "", vhcGradeCode: ""}
+    var _vinInfo = {vin: "", vhcGradeCode: ""}
     if (Keychain.contains(CONST_DATA.VinInfoKey)) {
-      let vinInfo= Keychain.get(CONST_DATA.VinInfoKey).split(" ")
-      _vinInfo.vin = vinInfo[0]
-      _vinInfo.vhcGradeCode = vinInfo[1]
+      let vinInfo = Keychain.get(CONST_DATA.VinInfoKey)
+      _vinInfo = JSON.parse(vinInfo)
     }
     return _vinInfo
   }
@@ -244,10 +269,13 @@ class Base {
   async PostRequest(url, contentType, body, cookie) {
     let header = {
       "type": "1",
+      "Connection": "keep-alive",
+      "Accept": "*/*",
+      "Host": "carapp.gtmc.com.cn",
+      "fyxDevice": "2",
       "User-Agent": CONST_DATA.UserAgent,
       "Authorization": cookie,
       "appVersion": `${CONST_DATA.AppVersion}`,
-      "fyxDevice": "2",
       "Content-Type": contentType
     }
     log(`开始POST网络请求: ${url}`)
@@ -259,15 +287,21 @@ class Base {
   }
 
   // GET 请求  
-  async GetRequest(url, contentType, cookie) {
+  async GetRequest(url, contentType, cookie = '') {
     let request = new Request(url)
-    let header = {
+    var header = {
       "type": "1",
+      "Connection": "keep-alive",
+      "Accept": "*/*",
+      "Host": "carapp.gtmc.com.cn",
+      "fyxDevice": "2",
       "User-Agent": CONST_DATA.UserAgent,
       "Authorization": cookie,
       "appVersion": `${CONST_DATA.AppVersion}`,
-      "fyxDevice": "2",
       "Content-Type": contentType
+    }
+    if (cookie.length == 0) {
+      header = {}
     }
     log(`开始GET网络请求: ${url}`)
     request.headers = header
@@ -585,11 +619,10 @@ class Widget extends Base {
     this.name = '凯美瑞 小组件'
     this.desc = '丰田凯美瑞 车辆桌面组件展示'
 
-    let userInfo = this.getUserInfoDetail()
-    this.cookie = `${userInfo.cookie}`
-    this.userId = `${userInfo.userId}`
-    this.phone = `${userInfo.phone}`
-    this.ak = `${userInfo.ak}`
+    this.cookie = `${this.userInfo.cookie}`
+    this.userId = `${this.userInfo.userId}`
+    this.phone = `${this.userInfo.phone}`
+    this.ak = `${this.userInfo.ak}`
     if (config.runsInApp) {
       // 1.获取cookie和userID
       if (this.cookie.length == 0) {
@@ -600,7 +633,7 @@ class Widget extends Base {
       }
       this.registerAction('移除用户信息', this.removeUserInfo)
       this.registerAction('抓包教程', this.captureData)  
-      this.registerAction("检查更新", this.checkUpdate)
+      this.registerAction("检查更新",  this.actionCheckUpdate)
       this.registerAction('打赏作者', this.actionDonation)
       this.registerAction('当前版本: v' + CONST_DATA.CurrentVersion, () => {})
     } else if (config.runsInWidget) {
@@ -846,7 +879,6 @@ class Widget extends Base {
 
     return widget
   }
-
   /**
    * 渲染错误信息
    */
@@ -879,9 +911,10 @@ class Widget extends Base {
     const alert = new Alert()
     alert.title = '组件声明'
     alert.message = `
-    1.小组件需要使用到您的丰云行应用的账号，首次使用需要用到丰云行的令牌和用户信息，但是无法无法直接从该应用获取\n\r
-    2.小组件不会收集您的个人账户信息，所有账号信息将存在 iCloud 或者 iPhone 上但也请您妥善保管自己的账号\n\r
-    3.小组件是开源、并且完全免费的，由凯美瑞车主开发，所有责任与广汽丰田公司无关\n\r
+    1.小组件需要使用到您的丰云行应用的账号，首次使用需要用到丰云行的令牌和用户信息，但是无法无法直接从该应用获取\n
+    2.小组件不会收集您的个人账户信息，所有账号信息将存在 iCloud 或者 iPhone 上但也请您妥善保管自己的账号\n
+    3.小组件是开源、并且完全免费的，由凯美瑞车主开发，所有责任与广汽丰田公司无关\n
+    4.如果第一次使用，需要您输入Cookie信息和百度AK，但是如果是非第一次使用，为了操作方便，本地缓存了百度AK\n
     开发者: GhostClock\n\r
     `
     alert.addAction('同意')
@@ -892,28 +925,34 @@ class Widget extends Base {
   }
 
   async _userInfo() {
-    log("_userInfo")
     var alert = new Alert()
     alert.title = "登录数据"
     alert.addTextField("请粘贴您抓取的数据", "")
-    alert.addTextField("请输入百度地图的AK", "")
+    let _ak = this.userInfo.ak
+    let showAKTextField = _ak.length == 0
+    if (showAKTextField) {
+      // 本地没有保存的百度AK
+      alert.addTextField("请输入百度地图的AK", "")
+    }
     alert.addAction("确定")
     alert.addCancelAction("取消")
-
     const id = await alert.presentAlert()
     if (id === -1) return
     let userInfo = alert.textFieldValue(0)
-    let _ak = alert.textFieldValue(1)
+    if (showAKTextField) {
+      // 本地没有保存的百度AK
+      _ak = alert.textFieldValue(1)
+    }
     try {
       let jsonData = JSON.parse(userInfo)
       // 解析数据
-      var _cookie = jsonData["data"]["jwt"]
-      var _userId = jsonData["data"]["rData"]["userId"]
-      var _phone = jsonData["data"]["rData"]["telPhone"]
-      log(_userId + "-" + _phone)
+      let _cookie = jsonData["data"]["jwt"]
+      let _userId = jsonData["data"]["rData"]["userId"]
+      let _phone = jsonData["data"]["rData"]["telPhone"]
       // 本地保存数据
-      let cacheUserInfo = _cookie + " " + _userId + " " + _phone + " " + _ak
+      let cacheUserInfo = {cookie: _cookie, userId: _userId, phone: _phone, ak: _ak}
       this.setUserInfo(cacheUserInfo)
+      log(`更新后本地保存的信息: ${cacheUserInfo.userId + " " + cacheUserInfo.phone}`);
         // 开始执行本地逻辑
       this.NetworkingAction(_cookie, _userId, _phone, _ak)
       this.notify('设置成功', '桌面组件稍后将自动刷新')
@@ -925,7 +964,7 @@ class Widget extends Base {
 
   async getData() {
     // 判断用户是否已经登录
-    return (Keychain.contains(CONST_DATA.UserInfoKey) && this.userInfo.length > 0) ? await this.bootstrap() : false
+    return (Keychain.contains(CONST_DATA.UserInfoKey) && this.userInfo.cookie.length > 0) ? await this.bootstrap() : false
   }
 
   async bootstrap() {
@@ -945,7 +984,8 @@ class Widget extends Base {
       longitude: "", //经度
       latitude: "", // 维度
       warningMsg: "", //警告信息
-      resultCode: "",
+      errMsg: "",
+      resultCode: "", // resultCode != 1 || resultCode != 200的时候errMsg有数据信息
       vhcGradeCode: "", // 汽车型号
       refreshDate: this.getRefreshDate() //刷新时间
     }
@@ -954,10 +994,13 @@ class Widget extends Base {
     let vinInfo = this.getVINInfo()
     let vin = vinInfo.vin
     let vhcGradeCode = vinInfo.vhcGradeCode
+    log(vinInfo)
     if (vin.length == 0) {
       log("本地无车架号和车型，开始请求车架号和车型")
       // 本地缓存取不到就去请求网络
       let _vinInfo = await this.RequestCarVinInfo(cookie, userId)
+      carInfoData.resultCode = _vinInfo.resultCode
+      carInfoData.errMsg = _vinInfo.errMsg
       if (_vinInfo.resultCode != '1') {
         this.cookitInvalid(_vinInfo.errMsg)
         return vinInfo
@@ -965,15 +1008,16 @@ class Widget extends Base {
       vin = _vinInfo.vin
       vhcGradeCode = _vinInfo.vhcGradeCode
 
-      this.setVINInfo(vin + " " + vhcGradeCode)
+      this.setVINInfo({vin: vin, vhcGradeCode: vhcGradeCode})
     } 
-    log(vinInfo)
     carInfoData.vin = vin
     carInfoData.vhcGradeCode = vhcGradeCode
     this.debugLog(`车架号: ${carInfoData.vin}`)
 
     // 2.获取汽车位置
     let positionData = await this.RequestCarPosition(cookie, phone, userId, carInfoData.vin, ak)
+    carInfoData.resultCode = positionData.resultCode
+    carInfoData.errMsg = positionData.errMsg
     if (positionData.resultCode != 200) {
       this.cookitInvalid(positionData.errMsg)
       return positionData
@@ -1000,7 +1044,6 @@ class Widget extends Base {
 
     // 5.获取门窗警告信息
     let warningInfo = await this.CarWarningMsg(phone, userId, cookie, carInfoData.vin)  
-    log(warningInfo)
     carInfoData.warningMsg = warningInfo.warningMsg
     var doorInfo = carInfoData.warningMsg.length > 0 ? `${carInfoData.warningMsg}` : "所有门窗都已经关好"
     this.debugLog(`门窗信息: ${doorInfo}`)
@@ -1009,7 +1052,7 @@ class Widget extends Base {
   // Cookie失效
   cookitInvalid(errMsg) {
     this.removeUserInfo()
-    this.notify("提示", `所有用户信息都已经清除(${_vinInfo.errMsg})`)
+    this.notify("提示", `所有用户信息都已经清除(${errMsg})`)
   }
 
   //-----网络请求-----
@@ -1019,16 +1062,20 @@ class Widget extends Base {
     let stringData = await this.PostRequest(CAR_REQUEST_URL.VinInfoURL, CONST_DATA.ContentTypeUrlencoded, body, cookie)
     let jsonData = JSON.parse(stringData)
     let resultCode = jsonData.resultCode
-    if (resultCode != "1") {
+    let errMsg = jsonData.errMsg
+    if (resultCode == 40303) {
       // Cookie过期
-      log(`Cookie已经过期, errorCode: ${resultCode}`)
-      return {resultCode: jsonData.resultCode, errMsg: jsonData.errMsg}
-    }
+      log(`请求车架号接口时检测到Cookie已经过期, Code: ${resultCode}, message: ${errMsg}`)
+      return {resultCode: resultCode, errMsg: errMsg}
+    } else if(resultCode != "1") {
+      log(`丰云行后台出问题, Code: ${resultCode}, message: ${errMsg}`)
+      return {resultCode: resultCode, errMsg: errMsg}
+    } else {}
     let row = jsonData.data.rows[0]
     let _vin = row.vin
     let _vhcGradeCode = row.vhcGradeCode
     _vhcGradeCode = _vhcGradeCode.split(" ")[1]
-    return {resultCode: jsonData.resultCode, vin: _vin, vhcGradeCode: _vhcGradeCode}
+    return {resultCode: resultCode, errMsg: errMsg,  vin: _vin, vhcGradeCode: _vhcGradeCode}
   }
 
   // 获取汽车经纬度信息 -> 地理反编码
@@ -1039,9 +1086,15 @@ class Widget extends Base {
       "userId": userId,
     }
     let data = await this.PostRequest(CAR_REQUEST_URL.PositionInfoURL, CONST_DATA.ContentTypeJson, body, cookie)
-    if (data.resultCode != 200) {
-      return {resultCode: data.resultCode, errMsg: data.errMsg}
-    }
+    let resultCode = data.resultCode
+    let errMsg = data.errMsg
+    if (resultCode == 40303) {
+      log(`请求汽车经纬度时接口市检测到Cookie已经过期, Code: ${resultCode}, message: ${errMsg}`)
+      return {resultCode: resultCode, errMsg: errMsg}
+    } else if(resultCode != 200) {
+      log(`丰云行后台出问题, Code: ${resultCode}, message: ${errMsg}`)
+      return {resultCode: resultCode, errMsg: errMsg}
+    } else {}
     var longitude = data["data"]["longitude"]
     var latitude = data["data"]["latitude"]
     log(longitude + " " + latitude)
@@ -1053,7 +1106,7 @@ class Widget extends Base {
     var district = addressComponent["district"]
     var street = addressComponent["street"]
     var _address = `${city}${district}${street}`
-    return {resultCode: data.resultCode, address: `${_address}`, longitude: `${longitude}`, latitude: `${latitude}` }
+    return {resultCode: resultCode, errMsg: errMsg, address: `${_address}`, longitude: `${longitude}`, latitude: `${latitude}` }
   }
   // 请求百度静态图片
   async RequestBDStaticPic(ak, longitude, latitude, size) {
@@ -1117,49 +1170,41 @@ class Widget extends Base {
     }
     return { warningMsg: msg }
   }
-  // 检查更新
-  async CheckUpdateAction() {
-    const UPDATE_FILE = 'GC-Camry-iOS.js'
-    const FILE_MGR = FileManager[module.filename.includes('Documents/iCloud~') ? 'iCloud' : 'local']()
-    const request = new Request(CAR_REQUEST_URL.UpdateVersionURL)
-    const responseString = await request.loadJSON()
-    log(responseString)
-    let response = JSON.parse(responseString)
-    console.log(`远程版本：${response?.version}`)
-    if (response?.version === CONST_DATA.CurrentVersion) return this.notify('无需更新', '远程版本一致，暂无更新')
-    console.log('发现新的版本')
-
-    const log = response?.changelog.join('\n')
-    const alert = new Alert()
-    alert.title = '更新提示'
-    alert.message = `是否需要升级到${response?.version.toString()}版本\n\r${log}`
-    alert.addAction('更新')
-    alert.addCancelAction('取消')
-    const id = await alert.presentAlert()
-    if (id === -1) return
-    await this.notify('正在更新中...')
-    const REMOTE_REQ = new Request(response?.download)
-    const REMOTE_RES = await REMOTE_REQ.load()
-    FILE_MGR.write(FILE_MGR.joinPath(FILE_MGR.documentsDirectory(), UPDATE_FILE), REMOTE_RES)
-
-    await this.notify('桌面组件更新完毕！')
-
-  }
 
   //-----网络请求结束-----
 
   // 手机抓包教程
   async captureData() {
-    Safari.open(CAR_REQUEST_URL.CaptureData)
+   Safari.open(CAR_REQUEST_URL.CaptureData)
   }
   // 打赏作者
-  async actionDonation() {
-    Safari.open(CAR_REQUEST_URL.ActionDonation)
+  async actionDonation() {    
+      Safari.open(CAR_REQUEST_URL.ActionDonation)
   }
   // 检查更新
-  async checkUpdate() {
-    const UPDATE_FILE = "GC-Camry-iOS"
-    await this.CheckUpdateAction()
+  async actionCheckUpdate() {
+    log(123)
+    let UPDATE_FILE = 'GC-Camry-iOS.js'
+    let FILE_MGR = FileManager[module.filename.includes('Documents/iCloud~') ? 'iCloud' : 'local']()
+    let url = CAR_REQUEST_URL.UpdateVersionURL
+    let response = await this.GetRequest(url, CONST_DATA.ContentTypeJson) 
+    console.log(`远程版本：${response.version}`)
+    if (response?.version === CONST_DATA.CurrentVersion) return this.notify('无需更新', '远程版本一致，暂无更新')
+    log('发现新的版本')
+    let logInfo = response.changelog.join('\n')
+    log(logInfo)
+    let alert = new Alert()
+    alert.title = '更新提示'
+    alert.message = `是否需要升级到${response.version}版本\n\r${logInfo}`
+    alert.addAction('更新')
+    alert.addCancelAction('取消')
+    let id = await alert.presentAlert()
+    if (id === -1) return
+    await this.notify('正在更新中...')
+    const REMOTE_REQ = new Request(response.download)
+    const REMOTE_RES = await REMOTE_REQ.load()
+    FILE_MGR.write(FILE_MGR.joinPath(FILE_MGR.documentsDirectory(), UPDATE_FILE), REMOTE_RES)
+    await this.notify('桌面组件更新完毕！')
   }
 }
 
