@@ -10,7 +10,7 @@
 
 ### 目前版本的最终效果：
 
-<img src="images/效果图.PNG" alt="效果图" style="zoom:70%;"/>
+<img src="images/效果图.PNG" alt="效果图" style="zoom:50%;"/>
 
 ### 1.本组件为本人空余时间开发，请勿用作商业用途；
 
@@ -44,7 +44,7 @@ Stream抓包使用方法请看(这里是教你怎么用Stream，和我们的目�
 
 因为我们是要抓取https的请求，所以直接看抓包实践：https://www.cnblogs.com/hong-fithing/p/12562448.html#tid-jX5wxr
 
-<img src="images/配置CA证书.png" alt="配置CA证书" style="zoom:75%;" />
+<img src="images/配置CA证书.png" alt="配置CA证书" style="zoom:50%;" />
 
 如上图所提示的，必须在系统信任CA证书才可以，信任路径
 
@@ -80,13 +80,13 @@ Stream抓包使用方法请看(这里是教你怎么用Stream，和我们的目�
 
 注意：应用类型要选【浏览器端】，其他默认即可，最后的Referer白名单输入*
 
-<img src="images/应用信息.png" alt="应用信息" style="zoom:75%;" />
+<img src="images/应用信息.png" alt="应用信息" style="zoom:50%;" />
 
 #### 3.复制AK
 
 返回到我的应用，复制AK
 
-<img src="images/AK.png" alt="AK" style="zoom:75%;" />
+<img src="images/AK.png" alt="AK" style="zoom:50%;" />
 
 
 
@@ -108,11 +108,11 @@ Stream抓包使用方法请看(这里是教你怎么用Stream，和我们的目�
 
 ### 4.打开抓包历史，点击最近的一次抓包记录，再点击【按域名】排序，找到`carapp.gtmc.com.cn`
 
-### <img src="images/carapp.gtmc.com.cn.png" alt="carapp.gtmc.com.cn" style="zoom:75%;" />
+### <img src="images/carapp.gtmc.com.cn.png" alt="carapp.gtmc.com.cn" style="zoom:50%;" />
 
-### 5.在右上搜索关键字`AppUser.json`,点击确定(注意如果您是使用的密码登录，请搜索`appUserLogin.json`)
+### 5.在右上搜索关键字`AppUser.json`,点击确定 (注意如果您是使用的密码登录，请搜索`appUserLogin.json`)
 
-### <img src="images/AppUser.png" alt="AppUser" style="zoom:75%;" />
+### <img src="images/AppUser.png" alt="AppUser" style="zoom:50%;" />
 
 ### 6.在搜索记录点击该请求，再点击【响应】，【查看响应】
 
@@ -122,7 +122,7 @@ Stream抓包使用方法请看(这里是教你怎么用Stream，和我们的目�
 
 如果您不好复制，可以点击右上角的剪头-点击分享-拷贝
 
-<img src="images/分享.jpg" alt="分享" style="zoom:20%;" /><img src="images/拷贝.jpg" alt="拷贝" style="zoom:20%;" />
+<img src="images/分享.jpg" alt="分享" style="zoom:50%;" /><img src="images/拷贝.jpg" alt="拷贝" style="zoom:50%;" />
 
 ## 5.运行Scriptable
 
