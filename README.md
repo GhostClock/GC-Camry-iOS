@@ -110,13 +110,19 @@ Stream抓包使用方法请看(这里是教你怎么用Stream，和我们的目�
 
 ### <img src="images/carapp.gtmc.com.cn.png" alt="carapp.gtmc.com.cn" style="zoom:75%;" />
 
-### 5.在右上搜索关键字`AppUser.json`,点击确定<img src="images/AppUser.png" alt="AppUser" style="zoom:75%;" />
+### 5.在右上搜索关键字`AppUser.json`,点击确定(注意如果您是使用的密码登录，请搜索`appUserLogin.json`)
+
+### <img src="images/AppUser.png" alt="AppUser" style="zoom:75%;" />
 
 ### 6.在搜索记录点击该请求，再点击【响应】，【查看响应】
 
 ### 7.拷贝全部数据
 
-<img src="images/用户信息.png" alt="用户信息" style="zoom:75%;" />
+<img src="images/用户信息.png" alt="用户信息" style="zoom:50%;" />
+
+如果您不好复制，可以点击右上角的剪头-点击分享-拷贝
+
+<img src="images/分享.jpg" alt="分享" style="zoom:20%;" /><img src="images/拷贝.jpg" alt="拷贝" style="zoom:20%;" />
 
 ## 5.运行Scriptable
 
