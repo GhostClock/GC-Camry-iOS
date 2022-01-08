@@ -13,7 +13,7 @@ const CONST_DATA = {
   // 车架号信息
   VinInfoKey: "VIN_INFO_KEY",
   // 当前版本号
-  CurrentVersion: "1.3.1",
+  CurrentVersion: "1.3.2",
   // ContentType
   ContentTypeUrlencoded: "application/x-www-form-urlencoded",
   ContentTypeJson: "application/json",
@@ -701,16 +701,22 @@ class Widget extends Base {
     
     // 剩余油量
     let isLowFuel = data.fuelPro <= 30
-    var fuelProStr = `油量: ${data.fuelPro}%`
+    var fuelProStr = `⛽️油量: ${data.fuelPro}%`
     var fuelProTitle = bgStack.addText(fuelProStr)
     fuelProTitle.font = isLowFuel ? Font.italicSystemFont(15) : this._Font(15)
     fuelProTitle.textColor = isLowFuel ? Color.red() : Color.black()
   
     // 续航  
-    var mileageVehStr = `续航: ${data.mileageVeh}km`
+    var mileageVehStr = `🚀续航: ${data.mileageVeh}km`
     var mileageVehTitle = bgStack.addText(mileageVehStr)
     mileageVehTitle.font = this._Font(15)
     mileageVehTitle.textColor = Color.black()
+
+    // 油耗
+    var fuelWearAvgStr = `平均油耗: ${data.fuelWearAvg}L/100km`
+    var fuelWearAvgTitle = bgStack.addText(fuelWearAvgStr)
+    fuelWearAvgTitle.font = this._Font(11)
+    fuelWearAvgTitle.textColor = Color.black()
 
     // 更新时间
     var refreshDate = `更新时间: ${data.refreshDate}`
@@ -748,9 +754,9 @@ class Widget extends Base {
     
     // 左
     let leftBgStack = bgStack.addStack()
-    leftBgStack.size = new Size(bgStack.size.width / 2.1, bgStack.size.height)
+    leftBgStack.size = new Size(bgStack.size.width / 2, bgStack.size.height)
     
-    let leftSpaceStack = this.addClearSpace(leftBgStack, 20, leftBgStack.size.height)
+    let leftSpaceStack = this.addClearSpace(leftBgStack, 18, leftBgStack.size.height)
     
     // 文本
     var textContentStack = leftBgStack.addStack()
@@ -761,38 +767,44 @@ class Widget extends Base {
     // 例如：`凯美瑞 ${data.vhcGradeCode} 豪华版(${data.registNo})` registNo为车牌号，
     let titleString = `CAMRY ${data.vhcGradeCode}`
     let title = textContentStack.addText(titleString)
-    title.font = Font.boldSystemFont(20) // 这里可以修改字体，默认为斜体,想改为斜体的话：italicSystemFontboldSystemFont(21)
+    title.font = Font.boldSystemFont(19) // 这里可以修改字体，默认为粗体(boldSystemFont),想改为斜体(italicSystemFont)
     title.textColor = Color.black()
     
     // 剩余油量
     let isLowFuel = data.fuelPro <= 30
-    var fuelProStr = `油量: ${data.fuelPro}%`
+    var fuelProStr = `⛽️油量: ${data.fuelPro}%`
     var fuelProTitle = textContentStack.addText(fuelProStr)
-    fuelProTitle.font = isLowFuel ? Font.italicSystemFont(16) : this._Font(16)
+    fuelProTitle.font = isLowFuel ? Font.italicSystemFont(15) : this._Font(15)
     fuelProTitle.textColor = isLowFuel ? Color.red() : Color.black()
     
     // 续航  
-    var mileageVehStr = `续航: ${data.mileageVeh}km`
+    var mileageVehStr = `🚀续航: ${data.mileageVeh}km`
     var mileageVehTitle = textContentStack.addText(mileageVehStr)
-    mileageVehTitle.font = this._Font(16)
+    mileageVehTitle.font = this._Font(15)
     mileageVehTitle.textColor = Color.black()
+
+    // 油耗
+    var fuelWearAvgStr = `平均油耗: ${data.fuelWearAvg}L/100km`
+    var fuelWearAvgTitle = textContentStack.addText(fuelWearAvgStr)
+    fuelWearAvgTitle.font = this._Font(10)
+    fuelWearAvgTitle.textColor = Color.black()
 
     // 总里程
     var mileageTotalStr = `总行程数: ${data.mileageTotal}km`
     var mileageTotalTitle = textContentStack.addText(mileageTotalStr)
-    mileageTotalTitle.font = this._Font(11)
+    mileageTotalTitle.font = this._Font(10)
     mileageTotalTitle.textColor = Color.black()
 
     // 更新时间
     var refreshDate = `更新时间: ${data.refreshDate}`
     var refreshDateTie = textContentStack.addText(refreshDate)
-    refreshDateTie.font = this._Font(11)
+    refreshDateTie.font = this._Font(10)
     refreshDateTie.textColor = Color.black()
 
     // 地址信息
     var carAddress = `${data.address}`
     var carAddressTitle = textContentStack.addText(`实时位置: ${carAddress}`)
-    carAddressTitle.font = this._Font(11)
+    carAddressTitle.font = this._Font(10)
     carAddressTitle.lineLimit = 2
     carAddressTitle.textColor = Color.black()
 
@@ -848,7 +860,7 @@ class Widget extends Base {
     let widget = new ListWidget()
     widget.backgroundImage = await this.shadowImage(await this.loadImage(CAR_REQUEST_URL.EmptyDataImage))
     // TODO
-    let text = widget.addText('大尺寸组件正在开发，敬请期待')
+    let text = widget.addText('请选择小组件和中组件，大尺寸组件正在开发，敬请期待')
     text.font = this._Font(18)
     text.textColor = Color.white()
     return widget
@@ -987,6 +999,8 @@ class Widget extends Base {
       errMsg: "",
       resultCode: "", // resultCode != 1 || resultCode != 200的时候errMsg有数据信息
       vhcGradeCode: "", // 汽车型号
+      fuelWearAvg: "", //加满油油耗
+      fuelFilledWearAvg: "", //当前油耗
       refreshDate: this.getRefreshDate() //刷新时间
     }
     // 1.必须先获取车架号 -> 经测试这个接口特别容易失败，所以做缓存处理
@@ -1033,6 +1047,8 @@ class Widget extends Base {
     carInfoData.fuelPro = currentInfo.fuelPro
     carInfoData.mileageVeh = currentInfo.mileageVeh
     carInfoData.mileageTotal = currentInfo.mileageTotal
+    carInfoData.fuelWearAvg = currentInfo.fuelWearAvg
+    carInfoData.fuelFilledWearAvg = currentInfo.fuelFilledWearAvg
     this.debugLog(`剩余油量: ${carInfoData.fuelPro}`)
 
     // 4.获取当前车辆信息(名称，图片，车牌号等)  
