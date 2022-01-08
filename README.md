@@ -100,7 +100,7 @@ Stream抓包使用方法请看(这里是教你怎么用Stream，和我们的目�
 
 https://www.icloud.com/shortcuts/75fd371e0aa8438a89f715238a21ee68
 
-<img src="/Users/ghostclock/Desktop/CodeWork/gc-camry-ios/images/一键复制.PNG" alt="一键复制" style="zoom:50%;" />
+<img src="images/一键复制.PNG" alt="一键复制" style="zoom:50%;" />
 
 ## 4.抓包获得丰云行Cookie信息
 
