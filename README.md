@@ -96,7 +96,11 @@ Stream抓包使用方法请看(这里是教你怎么用Stream，和我们的目�
 
 复制全部内容后打开Scriptable
 
+注意：因为在浏览器里面呈现的代码非常长，不好手动粘贴，推荐下面的使用捷径，可以一键复制（需要允许相应的权限）
 
+https://www.icloud.com/shortcuts/75fd371e0aa8438a89f715238a21ee68
+
+<img src="/Users/ghostclock/Desktop/CodeWork/gc-camry-ios/images/一键复制.PNG" alt="一键复制" style="zoom:50%;" />
 
 ## 4.抓包获得丰云行Cookie信息
 
