@@ -1,8 +1,8 @@
 {
 	"inherit": true,
-	"version": "1.3.1",
+	"version": "1.3.2",
 	"download": "https://gitee.com/GhostClock/gc-camry-ios/raw/master/GC-Camry-iOS.js",
 	"changelog": [
-		"1.车架号增加缓存机制", "2.缓存百度AK", "3.修复检测更新Bug"
+		"1.增加平均油耗展示", "2.油量和续航增加Emoji"
 	]
 }
