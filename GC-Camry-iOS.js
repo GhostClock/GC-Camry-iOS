@@ -13,7 +13,7 @@ const CONST_DATA = {
   // 车架号信息
   VinInfoKey: "VIN_INFO_KEY",
   // 当前版本号
-  CurrentVersion: "1.3.1",
+  CurrentVersion: "1.3.2",
   // ContentType
   ContentTypeUrlencoded: "application/x-www-form-urlencoded",
   ContentTypeJson: "application/json",
