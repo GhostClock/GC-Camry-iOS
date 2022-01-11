@@ -153,7 +153,7 @@ const CAR_REQUEST_URL = {
     `${BAIDU_BASE_API}reverse_geocoding/v3/?ak=${ak}&output=json&coordtype=wgs84ll&location=${latitude},${longitude}&radius=1000&pois=1&coordtype=bd09ll&page_size=1&extensions_poi=1`,
   // 百度静态图片
   BaiduStaticPicURL: (ak, longitude, latitude, size) => 
-    `${BAIDU_BASE_API}staticimage/v2?ak=${ak}&center=${longitude},${latitude}&width=${size.width}&height=${size.height}&zoom=15&copyright=1`,
+    `${BAIDU_BASE_API}staticimage/v2?ak=${ak}&center=${longitude},${latitude}&width=${size.width}&height=${size.height}&zoom=17&scale=2&copyright=1`,
   
   // 更新文件
   UpdateVersionURL: "https://gitee.com/GhostClock/gc-camry-ios/raw/master/version.json",
