@@ -1,8 +1,8 @@
 {
 	"inherit": true,
-	"version": "1.3.2",
+	"version": "1.3.3",
 	"download": "https://gitee.com/GhostClock/gc-camry-ios/raw/master/GC-Camry-iOS.js",
 	"changelog": [
-		"1.增加平均油耗展示", "2.油量和续航增加Emoji"
+		"增加百度地图的清晰度"
 	]
 }

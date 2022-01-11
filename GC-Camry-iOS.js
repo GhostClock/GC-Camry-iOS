@@ -5,7 +5,7 @@
 // ------静态数据------
 const CONST_DATA = {
   // App版本
-  AppVersion: "4.18.0",
+  AppVersion: "4.18.1",
   // UserAgent
   UserAgent: `GTMC_CarOwner_Yonyou/${this.AppVersion} (iPhone; iOS 15.2; Scale/3.00)Accept-Language: zh-Hans-CN;q=1, en-CN;q=0.9`,
   // CookieKey
@@ -13,7 +13,7 @@ const CONST_DATA = {
   // 车架号信息
   VinInfoKey: "VIN_INFO_KEY",
   // 当前版本号
-  CurrentVersion: "1.3.2",
+  CurrentVersion: "1.3.3",
   // ContentType
   ContentTypeUrlencoded: "application/x-www-form-urlencoded",
   ContentTypeJson: "application/json",
