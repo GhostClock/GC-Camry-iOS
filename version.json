@@ -4,7 +4,7 @@
 	"download": "https://gitee.com/GhostClock/gc-camry-ios/raw/master/GC-Camry-iOS.js",
 	"changelog": [
 		"1.增加百度地图的清晰度",
-		"2.修改混动车型为HG"
+		"2.修改混动车型为HG",
 		"3.修改提示音",
 		"4.更新丰云行版本到4.20.1"
 	]
