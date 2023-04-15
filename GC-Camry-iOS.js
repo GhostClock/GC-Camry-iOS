@@ -5,15 +5,15 @@
 // ------静态数据------
 const CONST_DATA = {
   // App版本
-  AppVersion: "4.18.0",
+  AppVersion: "5.10.0",
   // UserAgent
-  UserAgent: `GTMC_CarOwner_Yonyou/${this.AppVersion} (iPhone; iOS 15.2; Scale/3.00)Accept-Language: zh-Hans-CN;q=1, en-CN;q=0.9`,
+  UserAgent: `GTMC_CarOwner_Yonyou/${this.AppVersion} (iPhone; iOS 16.0; Scale/3.00)Accept-Language: zh-Hans-CN;q=1, en-CN;q=0.9`,
   // CookieKey
   UserInfoKey: "USERINFO_KEY",
   // 车架号信息
   VinInfoKey: "VIN_INFO_KEY",
   // 当前版本号
-  CurrentVersion: "1.3.2",
+  CurrentVersion: "1.3.5",
   // ContentType
   ContentTypeUrlencoded: "application/x-www-form-urlencoded",
   ContentTypeJson: "application/json",
@@ -153,7 +153,7 @@ const CAR_REQUEST_URL = {
     `${BAIDU_BASE_API}reverse_geocoding/v3/?ak=${ak}&output=json&coordtype=wgs84ll&location=${latitude},${longitude}&radius=1000&pois=1&coordtype=bd09ll&page_size=1&extensions_poi=1`,
   // 百度静态图片
   BaiduStaticPicURL: (ak, longitude, latitude, size) => 
-    `${BAIDU_BASE_API}staticimage/v2?ak=${ak}&center=${longitude},${latitude}&width=${size.width}&height=${size.height}&zoom=15&copyright=1`,
+    `${BAIDU_BASE_API}staticimage/v2?ak=${ak}&center=${longitude},${latitude}&width=${size.width}&height=${size.height}&zoom=17&scale=2&copyright=1`,
   
   // 更新文件
   UpdateVersionURL: "https://gitee.com/GhostClock/gc-camry-ios/raw/master/version.json",
@@ -534,7 +534,7 @@ class Base {
     let notif = new Notification()
     notif.title = title
     notif.body = body
-    notif.sound = "accept"
+    notif.sound = "event"
     return await notif.schedule()
   }
   // 给图片加一层半透明遮罩
@@ -650,7 +650,7 @@ class Widget extends Base {
   async render() {
     let data = await this.getData()
     const screenSize = Device.screenSize()
-    const size = CONST_DATA.DeviceSize[`${screenSize.width}x${screenSize.height}`] || DEVICE_SIZE['428x926']
+    const size = CONST_DATA.DeviceSize[`${screenSize.width}x${screenSize.height}`]
     if (data) {
       if (typeof data === 'object') {
         switch (this.widgetFamily) {
@@ -694,7 +694,7 @@ class Widget extends Base {
     var titleStack = bgStack.addStack()
     titleStack.layoutHorizontally()
     // titleStack.backgroundColor = Color.blue()
-    let title = titleStack.addText(`CAMRY ${data.vhcGradeCode}`)
+    let title = titleStack.addText(`凯美瑞 ${data.vhcGradeCode}`)
     title.lineLimit = 1
     title.font = Font.italicSystemFont(20)
     title.textColor = Color.black()
@@ -765,7 +765,7 @@ class Widget extends Base {
 
     // 可以在这里定制化你自己想要的Title,建议不要太长，因为可能显示不下 
     // 例如：`凯美瑞 ${data.vhcGradeCode} 豪华版(${data.registNo})` registNo为车牌号，
-    let titleString = `CAMRY ${data.vhcGradeCode}`
+    let titleString = `凯美瑞 ${data.vhcGradeCode}`
     let title = textContentStack.addText(titleString)
     title.font = Font.boldSystemFont(19) // 这里可以修改字体，默认为粗体(boldSystemFont),想改为斜体(italicSystemFont)
     title.textColor = Color.black()
@@ -986,7 +986,7 @@ class Widget extends Base {
   async NetworkingAction(cookie, userId, phone, ak) {
     var carInfoData = {
       address: "", // 地址
-      registNo: "", // 地址
+      registNo: "", // 车牌号
       vhcName: "",  // 名称
       modelImage: "", // 图片
       mileageTotal: "", // 总行程数
@@ -1025,6 +1025,10 @@ class Widget extends Base {
       this.setVINInfo({vin: vin, vhcGradeCode: vhcGradeCode})
     } 
     carInfoData.vin = vin
+    // 混动车型，把V改成G
+    if (vhcGradeCode.search("V") != -1) {
+      vhcGradeCode = vhcGradeCode.replaceAll("V", "G")
+    }
     carInfoData.vhcGradeCode = vhcGradeCode
     this.debugLog(`车架号: ${carInfoData.vin}`)
 
@@ -1199,7 +1203,6 @@ class Widget extends Base {
   }
   // 检查更新
   async actionCheckUpdate() {
-    log(123)
     let UPDATE_FILE = 'GC-Camry-iOS.js'
     let FILE_MGR = FileManager[module.filename.includes('Documents/iCloud~') ? 'iCloud' : 'local']()
     let url = CAR_REQUEST_URL.UpdateVersionURL
