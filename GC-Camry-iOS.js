@@ -5,15 +5,15 @@
 // ------静态数据------
 const CONST_DATA = {
   // App版本
-  AppVersion: "4.20.1",
+  AppVersion: "5.10.0",
   // UserAgent
-  UserAgent: `GTMC_CarOwner_Yonyou/${this.AppVersion} (iPhone; iOS 15.2; Scale/3.00)Accept-Language: zh-Hans-CN;q=1, en-CN;q=0.9`,
+  UserAgent: `GTMC_CarOwner_Yonyou/${this.AppVersion} (iPhone; iOS 16.0; Scale/3.00)Accept-Language: zh-Hans-CN;q=1, en-CN;q=0.9`,
   // CookieKey
   UserInfoKey: "USERINFO_KEY",
   // 车架号信息
   VinInfoKey: "VIN_INFO_KEY",
   // 当前版本号
-  CurrentVersion: "1.3.4",
+  CurrentVersion: "1.3.5",
   // ContentType
   ContentTypeUrlencoded: "application/x-www-form-urlencoded",
   ContentTypeJson: "application/json",
@@ -650,7 +650,7 @@ class Widget extends Base {
   async render() {
     let data = await this.getData()
     const screenSize = Device.screenSize()
-    const size = CONST_DATA.DeviceSize[`${screenSize.width}x${screenSize.height}`] || DEVICE_SIZE['428x926']
+    const size = CONST_DATA.DeviceSize[`${screenSize.width}x${screenSize.height}`]
     if (data) {
       if (typeof data === 'object') {
         switch (this.widgetFamily) {

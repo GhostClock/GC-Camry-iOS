@@ -1,11 +1,9 @@
 {
 	"inherit": true,
-	"version": "1.3.4",
+	"version": "1.3.5",
 	"download": "https://gitee.com/GhostClock/gc-camry-ios/raw/master/GC-Camry-iOS.js",
 	"changelog": [
-		"1.增加百度地图的清晰度",
-		"2.修改混动车型为HG",
-		"3.修改提示音",
-		"4.更新丰云行版本到4.20.1"
+		"1.App版本号为5.10.0",
+		"2.系统版本号为16.0"
 	]
 }
