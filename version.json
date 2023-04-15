@@ -1,7 +1,7 @@
 {
 	"inherit": true,
 	"version": "1.3.5",
-	"download": "https://gitee.com/GhostClock/gc-camry-ios/raw/master/GC-Camry-iOS.js",
+	"download": "https://ghproxy.com/https://raw.githubusercontent.com/GhostClock/GC-Camry-iOS/develop/GC-Camry-iOS.js",
 	"changelog": [
 		"1.App版本号为5.10.0",
 		"2.系统版本号为16.0"
